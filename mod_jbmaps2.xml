@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension client="site" method="upgrade" type="module" version="3.1">
+	<name>JB Maps2</name>
+	<author>Joomla Bamboo</author>
+	<creationDate>February 27, 2014</creationDate>
+	<copyright>Copyright (c) 2014 Joomla Bamboo. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<authorEmail>design@joomlabamboo.com</authorEmail>
+	<authorUrl>www.joomlabamboo.com</authorUrl>
+	<version>1.0.0</version>
+	<description>MOD_JBMAPS2_DESC</description>
+	<files>
+		<filename module="mod_jbmaps2">mod_jbmaps2.php</filename>
+		<folder>language</folder>
+		<folder>tmpl</folder>
+		<filename>index.html</filename>
+		<filename>LICENCE.txt</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">language/en-GB.mod_jbmaps2.ini</language>
+		<language tag="en-GB">language/en-GB.mod_jbmaps2.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
