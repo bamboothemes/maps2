@@ -41,13 +41,17 @@ $mapcustommapname	= $params->get('mapcustommapname', '');
 //check which controls should be on and off
 $allmapcontrols = array('zoomControl','panControl','mapTypeControl','scaleControl','streetViewControl','rotateControl','overviewMapControl');
 $controls = '';
-if ($mapcontrols) {
+if ($mapcontrols) { //we have at least one selected so turn each on or off as needed
 	foreach ($allmapcontrols as $control) {
 		if (in_array($control, $mapcontrols)) {
 			$controls .= $control.':1,';
 		} else {
 			$controls .= $control.':0,';
 		}
+	}
+} else { //turn off all controls if there are none selected
+	foreach ($allmapcontrols as $control) {
+		$controls .= $control.':0,';
 	}
 }
 
