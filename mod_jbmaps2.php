@@ -51,14 +51,14 @@ if ($mapcontrols) {
 	}
 }
 
+$mapcss = '#jbmaps2-'.$module->id.'{width:'.$mapwidth.';height:'.$mapheight.';max-width:100%}.gmnoprint img {max-width: none;}';
+
 //check for custom styles
 $styles = '';
 if ($mapcustomstyle && $mapcustommapname) {
 	$styles = "var styles".$module->id." = ".$mapcustomstyle."; var styledMap".$module->id." = new google.maps.StyledMapType(styles".$module->id.", {name: '".$mapcustommapname."'});";
 }
 
-
-$mapcss = '#jbmaps2-'.$module->id.'{width:'.$mapwidth.';height:'.$mapheight.';max-width:100%}';
 $script = "
 function initialize".$module->id."() {";
 //add cutom style

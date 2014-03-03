@@ -12,6 +12,7 @@ class JFormFieldPreviewMap extends JFormField {
 
 	public function getInput() {
 		$document = JFactory::getDocument();
+		$document->addStyleDeclaration('.gmnoprint img {max-width: none;}');
 		$document->addScript('http://maps.google.com/maps/api/js?sensor=false');
 		$document->addScriptDeclaration("
 function initialize() {
