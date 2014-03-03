@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension client="site" method="upgrade" type="module" version="3.1">
+<extension client="site" method="upgrade" type="module" version="3.2">
 	<name>JB Maps2</name>
 	<author>Joomla Bamboo</author>
 	<creationDate>February 27, 2014</creationDate>
@@ -11,21 +11,68 @@
 	<description>MOD_JBMAPS2_DESC</description>
 	<files>
 		<filename module="mod_jbmaps2">mod_jbmaps2.php</filename>
+		<folder>docs</folder>
+		<folder>fields</folder>
+		<folder>js</folder>
 		<folder>language</folder>
 		<folder>tmpl</folder>
 		<filename>index.html</filename>
 		<filename>LICENCE.txt</filename>
 	</files>
-	<languages>
-		<language tag="en-GB">language/en-GB.mod_jbmaps2.ini</language>
-		<language tag="en-GB">language/en-GB.mod_jbmaps2.sys.ini</language>
+	<languages folder="language">
+		<language tag="en-GB">en-GB.mod_jbmaps2.ini</language>
+		<language tag="en-GB">en-GB.mod_jbmaps2.sys.ini</language>
 	</languages>
 	<config>
-		<fields name="params">
+		<fields name="params" addfieldpath="/modules/mod_jbmaps2/fields">
 			<fieldset name="basic">
+				<field name="previewmap" type="previewmap" label="MOD_JBMAPS2_PREVIEWMAP_LABEL" description="MOD_JBMAPS2_PREVIEWMAP_DESC" />
+				<field name="mapsearch" type="text" default="" label="MOD_JBMAPS2_MAPSEARCH_LABEL" description="MOD_JBMAPS2_MAPSEARCH_DESC" />
+				<field name="mapwidth" type="text" default="100%" label="MOD_JBMAPS2_MAPWIDTH_LABEL" description="MOD_JBMAPS2_MAPWIDTH_DESC" class="input-mini jbmaps2-mapwidth" />
+				<field name="mapheight" type="text" default="300px" label="MOD_JBMAPS2_MAPHEIGHT_LABEL" description="MOD_JBMAPS2_MAPHEIGHT_DESC" class="input-mini jbmaps2-mapheight" />
+				<field name="mapcontrols" type="checkboxes" label="MOD_JBMAPS2_MAPCONTROLS_LABEL" description="MOD_JBMAPS2_MAPCONTROLS_DESC" class="btn-group jbmaps2-mapcontrols" >
+					<option value="zoomControl">zoom</option>
+					<option value="panControl">pan</option>
+					<option value="mapTypeControl">maptype</option>
+					<option value="scaleControl">scale</option>
+					<option value="streetViewControl">streetview</option>
+					<option value="rotateControl">rotate</option>
+					<option value="overviewMapControl">overview</option>
+				</field>
+				<field name="mapzoom" type="integer" default="5" label="MOD_JBMAPS2_MAPZOOM_LABEL" description="MOD_JBMAPS2_MAPZOOM_DESC" first="0" last="20" step="1" />
+				<field name="maptilt" type="list" default="0" label="MOD_JBMAPS2_MAPTILT_LABEL" description="MOD_JBMAPS2_MAPTILT_DESC" class="jbmaps2-maptilt" >
+					<option value="0">0</option>
+					<option value="45">45</option>
+				</field>
+				<field name="mapheading" type="integer" default="0" label="MOD_JBMAPS2_MAPHEADING_LABEL" description="MOD_JBMAPS2_MAPHEADING_DESC" first="0" last="270" step="90" class="input-mini jbmaps2-mapheading" />
+				<field name="mapcentlat" type="text" default="54.525961" label="MOD_JBMAPS2_MAPCENTLAT_LABEL" description="MOD_JBMAPS2_MAPCENTLAT_DESC" class="jbmaps2-mapcantlat" filter="float" />
+				<field name="mapcentlon" type="text" default="15.255119" label="MOD_JBMAPS2_MAPCENTLON_LABEL" description="MOD_JBMAPS2_MAPCENTLON_DESC" class="jbmaps2-mapcantlon" filter="float" />
+				<field name="maptype" type="list" default="ROADMAP" label="MOD_JBMAPS2_MAPTYPE_LABEL" description="MOD_JBMAPS2_MAPTYPE_DESC" class="jbmaps2-maptype">
+					<option value="ROADMAP">roadmap</option>
+					<option value="SATELLITE">satellite</option>
+					<option value="HYBRID">hybrid</option>
+					<option value="TERRAIN">terrain</option>
+				</field>
+				<field name="mapdraggable" type="radio" label="MOD_JBMAPS2_MAPDRAGGABLE_LABEL" description="MOD_JBMAPS2_MAPDRAGGABLE_DESC" default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="markersarray" type="Repeatable" icon="pushpin" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC" default="{'markertitle':['Title'],'markerdescription':[],'markerlocation':[]}">
+					<fields name="params">
+						<fieldset hidden="true" name="markersarray_modal" repeat="true">
+							<field name="markertitle" label="MOD_JBMAPS2_MARKERTITLE_LABEL" type="text" />
+							<field name="markerdescription" label="MOD_JBMAPS2_MARKERDESCRIPTION_LABEL" type="textarea" filter="safehtml" />
+							<field name="markerlocation" label="MOD_JBMAPS2_MARKERLOCATION_LABEL" description="MOD_JBMAPS2_MARKERLOCATION_DESC" type="text"/>
+						</fieldset>
+					</fields>
+				</field>
 			</fieldset>
 			<fieldset name="advanced">
+				<field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+				<field name="mapcustomstyletext" type="note" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_DESC" filter="raw" />
+				<field name="mapcustommapname" type="text" label="MOD_JBMAPS2_MAPCUSTOMMAPNAME_LABEL" description="MOD_JBMAPS2_MAPCUSTOMMAPNAME_DESC" default="" /> 
+				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
 			</fieldset>
 		</fields>
 	</config>
