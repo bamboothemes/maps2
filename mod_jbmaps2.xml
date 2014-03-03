@@ -62,7 +62,6 @@
 						<fieldset hidden="true" name="markersarray_modal" repeat="true">
 							<field name="markertitle" label="MOD_JBMAPS2_MARKERTITLE_LABEL" type="text" />
 							<field name="markerdescription" label="MOD_JBMAPS2_MARKERDESCRIPTION_LABEL" type="textarea" filter="safehtml" />
-							<field name="markerlocation" label="MOD_JBMAPS2_MARKERLOCATION_LABEL" description="MOD_JBMAPS2_MARKERLOCATION_DESC" type="text"/>
 						</fieldset>
 					</fields>
 				</field>
