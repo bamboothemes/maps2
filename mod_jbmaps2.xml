@@ -26,6 +26,7 @@
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_jbmaps2/fields">
 			<fieldset name="basic">
+				<field name="previewmap" type="scripts" />
 				<field name="previewmap" type="previewmap" label="MOD_JBMAPS2_PREVIEWMAP_LABEL" description="MOD_JBMAPS2_PREVIEWMAP_DESC" />
 				<field name="mapsearch" type="text" default="" label="MOD_JBMAPS2_MAPSEARCH_LABEL" description="MOD_JBMAPS2_MAPSEARCH_DESC" />
 				<field name="mapwidth" type="text" default="100%" label="MOD_JBMAPS2_MAPWIDTH_LABEL" description="MOD_JBMAPS2_MAPWIDTH_DESC" class="input-mini jbmaps2-mapwidth" />
@@ -56,14 +57,6 @@
 				<field name="mapdraggable" type="radio" label="MOD_JBMAPS2_MAPDRAGGABLE_LABEL" description="MOD_JBMAPS2_MAPDRAGGABLE_DESC" default="1" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
-				</field>
-				<field name="markersarray" type="Repeatable" icon="pushpin" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC" default="{'markertitle':['Title'],'markerdescription':[],'markerlocation':[]}">
-					<fields name="params">
-						<fieldset hidden="true" name="markersarray_modal" repeat="true">
-							<field name="markertitle" label="MOD_JBMAPS2_MARKERTITLE_LABEL" type="text" />
-							<field name="markerdescription" label="MOD_JBMAPS2_MARKERDESCRIPTION_LABEL" type="textarea" filter="safehtml" />
-						</fieldset>
-					</fields>
 				</field>
 			</fieldset>
 			<fieldset name="advanced">

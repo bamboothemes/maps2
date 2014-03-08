@@ -1,3 +1,4 @@
+jQuery( document ).ready(function() {
 function initialize() {
 	var mapOptions = {
 		center: new google.maps.LatLng(54.525961, 15.255119), //change to match a default set in the params
@@ -173,4 +174,5 @@ jQuery('.nav-tabs').click(function() {
 //test stuff
 //var selectedmaptype = jQuery('.jbmaps2-maptype').val();
 //jQuery('#jbmaps2-maptype').append('<p>' + selectedmaptype + '</p>');
+});
 });
