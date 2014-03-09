@@ -17,29 +17,30 @@ function initialize() {
     //this part runs when the mapobject is created and rendered
 
     //******************Markers***********************//
-    var locations = [
-      ['Bondi Beach', -33.890542, 151.274856, 4],
-      ['Coogee Beach', -33.923036, 151.259052, 5],
-      ['Cronulla Beach', -34.028249, 151.157507, 3],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    var locations = [ //some to test with
+    [1, 'Bondi Beach', -33.890542, 151.274856],
+    [2, 'Coogee Beach', -33.923036, 151.259052],
+    [3, 'Cronulla Beach', -34.028249, 151.157507],
+    [4, 'Manly Beach', -33.80010128657071, 151.28747820854187],
+    [5, 'Maroubra Beach', -33.950198, 151.259302]
     ];
-    var infowindow = new google.maps.InfoWindow();
 
-    var marker, i;
+    function plotMarkers(locations) {
+    	var infowindow = new google.maps.InfoWindow();
+    	var marker, i;
+    	for (i = 0; i < locations.length; i++) {  
+    		marker = new google.maps.Marker({
+    			position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+    			map: map
+    		});
 
-    for (i = 0; i < locations.length; i++) {  
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-        map: map
-      });
-
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent(locations[i][0]);
-          infowindow.open(map, marker);
-        }
-      })(marker, i));
+    		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    			return function() {
+    				infowindow.setContent(locations[i][1]);
+    				infowindow.open(map, marker);
+    			}
+    		})(marker, i));
+    	}
     }
 
     function placeMarker(location) {
@@ -48,12 +49,27 @@ function initialize() {
     		position: location,
     		map: map
     	});
+    	newmarker = [ locations.length + 1, 'new marker', marker['position'].lat(), marker['position'].lng()];
+    	locations.push(newmarker);
+    	updateMarkerField(locations);
+    	plotMarkers(locations);
+    	console.log(locations.join('\n'));
+    }
+
+    function updateMarkerField(markerarray) {
+    	jQuery('input#jform_params_markerdata').val(JSON.stringify(markerarray));
     }
 
     google.maps.event.addListener(map, 'click', function(event) {
     	placeMarker(event.latLng);
     });
-    
+
+    //check for markers on pageload
+    if(jQuery('input#jform_params_markerdata').val() != ''){
+    		savedmarkers = JSON.parse(jQuery('input#jform_params_markerdata').val());
+    		plotMarkers(savedmarkers);
+    }
+       
 
     
 //******************End markers*******************//
