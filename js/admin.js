@@ -18,11 +18,11 @@ function initialize() {
 
     //******************Markers***********************//
     var locations = [ //some to test with
-    [1, 'Bondi Beach', -33.890542, 151.274856],
-    [2, 'Coogee Beach', -33.923036, 151.259052],
-    [3, 'Cronulla Beach', -34.028249, 151.157507],
-    [4, 'Manly Beach', -33.80010128657071, 151.28747820854187],
-    [5, 'Maroubra Beach', -33.950198, 151.259302]
+    //[1, 'Bondi Beach', -33.890542, 151.274856],
+    //[2, 'Coogee Beach', -33.923036, 151.259052],
+    //[3, 'Cronulla Beach', -34.028249, 151.157507],
+    //[4, 'Manly Beach', -33.80010128657071, 151.28747820854187],
+    //[5, 'Maroubra Beach', -33.950198, 151.259302]
     ];
 
     function plotMarkers(locations) {
@@ -66,10 +66,30 @@ function initialize() {
 
     //check for markers on pageload
     if(jQuery('input#jform_params_markerdata').val() != ''){
-    		savedmarkers = JSON.parse(jQuery('input#jform_params_markerdata').val());
-    		plotMarkers(savedmarkers);
+    	savedmarkers = JSON.parse(jQuery('input#jform_params_markerdata').val());
+    	locations = savedmarkers;
+    	plotMarkers(savedmarkers);
+    	createMarkerFields(savedmarkers);//print to console to check
     }
-       
+
+    //create the fields to edit marker data
+    function createMarkerFields(locations){
+    	var markerHtml = '';
+    	locations.forEach(function(location) {
+    		console.log(location);
+    		markerHtml += '<fieldset class="form-inline">\
+    						<legend>Marker ' + location[0]  + ' </legend>\
+    						<label>Text</label>\
+    						<textarea rows="3">' + location[1] + '</textarea>\
+    						<label>Lat:</label>\
+    						<input class="input-mini" type="text" value="' + location[2] +'">\
+    						<label>Lon:</label>\
+    						<input class="input-mini" type="text" value="' + location[3] +'">\
+    						</fieldset>';
+    	});
+    	document.getElementById('markers').innerHTML = markerHtml;
+    }
+
 
     
 //******************End markers*******************//
