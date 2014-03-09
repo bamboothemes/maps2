@@ -1,4 +1,3 @@
-jQuery( document ).ready(function() {
 function initialize() {
 	var mapOptions = {
 		center: new google.maps.LatLng(54.525961, 15.255119), //change to match a default set in the params
@@ -16,17 +15,61 @@ function initialize() {
 	google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
 	// http://stackoverflow.com/questions/832692/how-can-i-check-whether-google-maps-is-fully-loaded
     //this part runs when the mapobject is created and rendered
-    function updateMapType(){
-    	var selectedmaptype = jQuery('#jform_params_maptype').val();
-    	if (selectedmaptype === 'SATELLITE') {
-    		map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-    	} else if (selectedmaptype === 'HYBRID') {
-    		map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-    	} else if (selectedmaptype === 'TERRAIN') {
-    		map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-    	} else {
-    		map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-    	};
+
+    //******************Markers***********************//
+    var locations = [
+      ['Bondi Beach', -33.890542, 151.274856, 4],
+      ['Coogee Beach', -33.923036, 151.259052, 5],
+      ['Cronulla Beach', -34.028249, 151.157507, 3],
+      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+
+    function placeMarker(location) {
+    	var clickedLocation = new google.maps.LatLng(location);
+    	var marker = new google.maps.Marker({
+    		position: location,
+    		map: map
+    	});
+    }
+
+    google.maps.event.addListener(map, 'click', function(event) {
+    	placeMarker(event.latLng);
+    });
+    
+
+    
+//******************End markers*******************//
+
+
+function updateMapType(){
+	var selectedmaptype = jQuery('#jform_params_maptype').val();
+	if (selectedmaptype === 'SATELLITE') {
+		map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+	} else if (selectedmaptype === 'HYBRID') {
+		map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+	} else if (selectedmaptype === 'TERRAIN') {
+		map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+	} else {
+		map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+	};
     } //end updatemapType
 
     //update type on pageload
@@ -98,7 +141,7 @@ function initialize() {
 	//toggle the tilt
 	function updateMapTilt(tilt){
 		map.setTilt(parseInt(tilt));
-		console.log('tilt ' + parseInt(tilt));
+		//console.log('tilt ' + parseInt(tilt));
 	}
 	jQuery('#jform_params_maptilt').change(function(){
 		updateMapTilt(jQuery('#jform_params_maptilt').val());
@@ -118,7 +161,7 @@ function initialize() {
 	updateMapHeading(jQuery('#jform_params_mapheading').val());
 	//update select on map heading change
 	google.maps.event.addListener(map,'heading_changed',function () {
-		jQuery('#jform_params_mapheading').val(map.getHeading());
+		jQuery('#jform_params_mapheading').val(parseInt(map.getHeading()));
 		jQuery('#jform_params_mapheading_chzn span').text(map.getHeading());
 		//console.log(map.getHeading());
 	});	
@@ -174,5 +217,5 @@ jQuery('.nav-tabs').click(function() {
 //test stuff
 //var selectedmaptype = jQuery('.jbmaps2-maptype').val();
 //jQuery('#jbmaps2-maptype').append('<p>' + selectedmaptype + '</p>');
-});
+
 });

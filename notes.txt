@@ -1,0 +1,2 @@
+infobox
+http://stackoverflow.com/questions/7616666/google-maps-api-v3-custom-styles-for-infowindow/7628522#7628522

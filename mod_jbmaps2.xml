@@ -26,20 +26,10 @@
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_jbmaps2/fields">
 			<fieldset name="basic">
-				<field name="previewmap" type="scripts" />
 				<field name="previewmap" type="previewmap" label="MOD_JBMAPS2_PREVIEWMAP_LABEL" description="MOD_JBMAPS2_PREVIEWMAP_DESC" />
 				<field name="mapsearch" type="text" default="" label="MOD_JBMAPS2_MAPSEARCH_LABEL" description="MOD_JBMAPS2_MAPSEARCH_DESC" />
 				<field name="mapwidth" type="text" default="100%" label="MOD_JBMAPS2_MAPWIDTH_LABEL" description="MOD_JBMAPS2_MAPWIDTH_DESC" class="input-mini jbmaps2-mapwidth" />
 				<field name="mapheight" type="text" default="300px" label="MOD_JBMAPS2_MAPHEIGHT_LABEL" description="MOD_JBMAPS2_MAPHEIGHT_DESC" class="input-mini jbmaps2-mapheight" />
-				<field name="mapcontrols" type="checkboxes" label="MOD_JBMAPS2_MAPCONTROLS_LABEL" description="MOD_JBMAPS2_MAPCONTROLS_DESC" class="btn-group jbmaps2-mapcontrols" >
-					<option value="zoomControl">zoom</option>
-					<option value="panControl">pan</option>
-					<option value="mapTypeControl">maptype</option>
-					<option value="scaleControl">scale</option>
-					<option value="streetViewControl">streetview</option>
-					<option value="rotateControl">rotate</option>
-					<option value="overviewMapControl">overview</option>
-				</field>
 				<field name="mapzoom" type="integer" default="5" label="MOD_JBMAPS2_MAPZOOM_LABEL" description="MOD_JBMAPS2_MAPZOOM_DESC" first="0" last="20" step="1" />
 				<field name="maptilt" type="list" default="0" label="MOD_JBMAPS2_MAPTILT_LABEL" description="MOD_JBMAPS2_MAPTILT_DESC" class="jbmaps2-maptilt" >
 					<option value="0">0</option>
@@ -54,10 +44,21 @@
 					<option value="HYBRID">hybrid</option>
 					<option value="TERRAIN">terrain</option>
 				</field>
+				<field name="mapcontrols" type="checkboxes" label="MOD_JBMAPS2_MAPCONTROLS_LABEL" description="MOD_JBMAPS2_MAPCONTROLS_DESC" class="btn-group jbmaps2-mapcontrols" >
+					<option value="zoomControl">zoom</option>
+					<option value="panControl">pan</option>
+					<option value="mapTypeControl">maptype</option>
+					<option value="scaleControl">scale</option>
+					<option value="streetViewControl">streetview</option>
+					<option value="rotateControl">rotate</option>
+					<option value="overviewMapControl">overview</option>
+				</field>
 				<field name="mapdraggable" type="radio" label="MOD_JBMAPS2_MAPDRAGGABLE_LABEL" description="MOD_JBMAPS2_MAPDRAGGABLE_DESC" default="1" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+				<field name="markerdata" type="hidden" label=""/>
+				<field name="markers" type="markers" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC"/>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />

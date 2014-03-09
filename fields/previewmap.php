@@ -6,10 +6,6 @@ jimport('joomla.form.formfield');
 
 class JFormFieldPreviewMap extends JFormField {
 
-	protected $type = 'City';
-
-        // getLabel() left out
-
 	public function getInput() {
 		$document = JFactory::getDocument();
 		$document->addStyleDeclaration('.gmnoprint img {max-width: none;}#jform_params_mapcustomstyle{height:300px;width:400px}#map{margin-left:-180px;padding-right:180px}label#jform_params_previewmap-lbl,#map{clear:both}');		
