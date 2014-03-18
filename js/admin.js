@@ -165,10 +165,104 @@ jQuery('#jform_params_mapdraggable').click(function(){
 });
 //******************end drag*******************//
 
+//******************markers***********************//
+var locations = [];
+function placeMarker(location) {
+  var clickedLocation = new google.maps.LatLng(location);
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  newmarker = [ locations.length + 1, 'new marker', marker.position.lat(), marker.position.lng()];
+  locations.push(newmarker);
+  updateMarkerField(locations);
+  console.log(locations.join('\n'));
+}
+//add a marker on click
+google.maps.event.addListener(map, 'click', function(event) {
+  placeMarker(event.latLng);
+  //createMarkerFields();
+});
+//update the field holding the information
+function updateMarkerField(markerarray) {
+  jQuery('input#jform_params_markerdata').val(JSON.stringify(markerarray));
+}
+//plot the saved markers
+function plotMarkers(locations) {
+      //need to add a markers clear here to remove markers when updating
+      var infowindow = new google.maps.InfoWindow();
+      var marker, i;
+      for (i = 0; i < locations.length; i++) {  
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+          map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infowindow.setContent(locations[i][1]);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+      }
+    }
+//create the fields to edit marker data
+function createMarkerFields(locations){
+  locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
+  var markerHtml = '<div id="markerhtml">';
+  locations.forEach(function(location) {
+    console.log(location);
+    /*jshint multistr: true */
+    markerHtml += '<fieldset class="form-inline">\
+    <legend>Marker' + location[0]  + '</legend>\
+    <label>Text</label>\
+    <textarea rows="3">' + location[1] + '</textarea>\
+    <label>Lat:</label>\
+    <input class="input-mini" type="text" value="' + location[2] +'">\
+    <label>Lon:</label>\
+    <input class="input-mini" type="text" value="' + location[3] +'">\
+    <button data-marker-id="' + location[0]  + '" class="btn btn-mini btn-danger removemarker" type="button"><i class="icon-remove"></i>Delete Marker</button>\
+    </fieldset>';
+  });
+  markerHtml += '</div>';
+  document.getElementById('markers').innerHTML = markerHtml;
+}
+function removeMarker(id) {
+      //remove the marker from the array and replot
+      var locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
+      var newlocations = [];
+      locations.forEach(function(location) {
+        if (parseInt(location[0]) !== id) {
+          console.debug(location);
+          newmarker = [newlocations.length + 1, location[1], location[2], location[3]];
+          newlocations.push(newmarker); 
+        } else {
+          console.log('remove:' + id);
+          //location[0].setMap(null); need to remove the marker from the map
+        }
+      });
+      
+      //replot markers and update fields
+      plotMarkers(newlocations);
+      updateMarkerField(newlocations);
+      createMarkerFields(newlocations);
+      //console.debug(JSON.stringify(newlocations));
+    }
+
+//check for markers on pageload
+if(jQuery('input#jform_params_markerdata').val() !== ''){
+  locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
+  plotMarkers(locations);
+  createMarkerFields();
+}
+//remove a marker if clicked
+jQuery(document).on('click', '.btn.removemarker', function(){
+  id = jQuery(this).data('marker-id');
+  removeMarker(id);
+});
+//******************end markers*******************//
 
 
-//******************o***********************//
-//******************end o*******************//
 //******************o***********************//
 //******************end o*******************//
 //******************o***********************//
@@ -187,3 +281,7 @@ google.maps.event.trigger(map,'resize');
 
 } //end initalize
 google.maps.event.addDomListener(window, 'load', initialize);
+
+jQuery(window).load(function() {
+ google.maps.event.trigger(map,'resize');
+});
