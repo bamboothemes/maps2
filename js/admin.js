@@ -173,7 +173,7 @@ function placeMarker(location) {
     position: location,
     map: map
   });
-  newmarker = [ locations.length + 1, 'new marker', marker.position.lat(), marker.position.lng()];
+  newmarker = [ locations.length + 1, 'new marker ' + (locations.length + 1), marker.position.lat(), marker.position.lng()];
   locations.push(newmarker);
   updateMarkerField(locations);
   console.log(locations.join('\n'));
@@ -181,15 +181,22 @@ function placeMarker(location) {
 //add a marker on click
 google.maps.event.addListener(map, 'click', function(event) {
   placeMarker(event.latLng);
-  //createMarkerFields();
+  createMarkerFields();
 });
 //update the field holding the information
 function updateMarkerField(markerarray) {
   jQuery('input#jform_params_markerdata').val(JSON.stringify(markerarray));
 }
 //plot the saved markers
-function plotMarkers(locations) {
-      //need to add a markers clear here to remove markers when updating
+function plotMarkers(locations,oldlocations) {
+      // Sets the map on all markers in the array.
+      function setAllMap(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+      setAllMap(null);
+      //marker.setMap(null);      
       var infowindow = new google.maps.InfoWindow();
       var marker, i;
       for (i = 0; i < locations.length; i++) {  
@@ -204,36 +211,63 @@ function plotMarkers(locations) {
             infowindow.open(map, marker);
           }
         })(marker, i));
+
+        google.maps.event.addListener(marker, 'dblclick', function() {
+          var x = confirm("are you sure to delete marker?");
+          if(x){
+            this.setMap(null);
+            //this = null;
+          }
+        });
       }
+      updateMarkerField(locations);
+      createMarkerFields(locations);
     }
 //create the fields to edit marker data
 function createMarkerFields(locations){
   locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
-  var markerHtml = '<div id="markerhtml">';
+  var markerHtml = '';
   locations.forEach(function(location) {
-    console.log(location);
+    //console.log(location);
     /*jshint multistr: true */
-    markerHtml += '<fieldset class="form-inline">\
+    markerHtml += '<fieldset class="form-inline" data-type="markerfieldset">\
     <legend>Marker' + location[0]  + '</legend>\
+    <input data-type="markerid" type="hidden" value="' + location[0] +'">\
     <label>Text</label>\
-    <textarea rows="3">' + location[1] + '</textarea>\
+    <textarea data-type="markerhtml" rows="3">' + location[1] + '</textarea>\
     <label>Lat:</label>\
-    <input class="input-mini" type="text" value="' + location[2] +'">\
-    <label>Lon:</label>\
-    <input class="input-mini" type="text" value="' + location[3] +'">\
+    <input class="input-mini" data-type="markerlat" type="text" value="' + location[2] +'">\
+    <label>Lng:</label>\
+    <input class="input-mini" data-type="markerlng" type="text" value="' + location[3] +'">\
     <button data-marker-id="' + location[0]  + '" class="btn btn-mini btn-danger removemarker" type="button"><i class="icon-remove"></i>Delete Marker</button>\
     </fieldset>';
   });
-  markerHtml += '</div>';
   document.getElementById('markers').innerHTML = markerHtml;
 }
+function updateMarkerDatafromFields(){
+  markerdata = [];
+  jQuery('fieldset[data-type="markerfieldset"]').each(function(){
+    id = parseInt(jQuery(this).find('input[data-type="markerid"]').val());
+    html = htmlEntities(jQuery(this).find('textarea[data-type="markerhtml"]').val());
+    lat = parseFloat(jQuery(this).find('input[data-type="markerlat"]').val());
+    lng = parseFloat(jQuery(this).find('input[data-type="markerlng"]').val());
+    //console.log(id,html,lat,lng);
+    markerdata.push([id,html,lat,lng]);
+    
+  });
+  updateMarkerField(markerdata);
+}
+//update marker array when editing
+jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
+  updateMarkerDatafromFields();
+});
 function removeMarker(id) {
       //remove the marker from the array and replot
       var locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
       var newlocations = [];
       locations.forEach(function(location) {
         if (parseInt(location[0]) !== id) {
-          console.debug(location);
+          //console.debug(location);
           newmarker = [newlocations.length + 1, location[1], location[2], location[3]];
           newlocations.push(newmarker); 
         } else {
@@ -243,9 +277,7 @@ function removeMarker(id) {
       });
       
       //replot markers and update fields
-      plotMarkers(newlocations);
-      updateMarkerField(newlocations);
-      createMarkerFields(newlocations);
+      plotMarkers(newlocations,locations);
       //console.debug(JSON.stringify(newlocations));
     }
 
@@ -256,25 +288,36 @@ if(jQuery('input#jform_params_markerdata').val() !== ''){
   createMarkerFields();
 }
 //remove a marker if clicked
-jQuery(document).on('click', '.btn.removemarker', function(){
-  id = jQuery(this).data('marker-id');
-  removeMarker(id);
+jQuery('#markers').on('click', '.btn.removemarker', function(){
+  var x = confirm("are you sure to delete marker?");
+  if(x){
+    id = jQuery(this).data('marker-id');
+    removeMarker(id);
+  }
 });
 //******************end markers*******************//
 
 
-//******************o***********************//
-//******************end o*******************//
+//******************general functions***********************//
+// encode(decode) html text into html entity
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+//******************end general functions*******************//
+
 //******************o***********************//
 //******************end o*******************//
 //******************o***********************//
 //******************end o*******************//
 
 //******************re-initalize on tab click***********************//
-[].forEach.call(document.querySelectorAll('ul.nav-tabs li'), function(el) {
+/*[].forEach.call(document.querySelectorAll('ul.nav-tabs li'), function(el) {
   el.addEventListener('click', function() {
     setTimeout(function(){ initialize(); }, 100);
   });
+});*/
+jQuery('ul.nav-tabs li').click(function() {
+  setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
 });
 google.maps.event.trigger(map,'resize');
 //******************end re-initalize on tab click*******************//
