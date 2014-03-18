@@ -34,10 +34,11 @@ $mapcentlat			= $params->get('mapcentlat', '54.525961');
 $mapcentlon			= $params->get('mapcentlon', '15.255119');
 $maptype			= $params->get('maptype', 'ROADMAP');
 $mapdraggable		= $params->get('mapdraggable') == 1 ? 1 : 0;
+$markerdata			= $params->get('markerdata', '');
 $mapcustomstyle		= $params->get('mapcustomstyle', '');
 $mapcustommapname	= $params->get('mapcustommapname', '');
 //$					= $params->get('', '');
-
+echo "markers:".var_dump($markerdata);
 //check which controls should be on and off
 $allmapcontrols = array('zoomControl','panControl','mapTypeControl','scaleControl','streetViewControl','rotateControl','overviewMapControl');
 $controls = '';
@@ -59,43 +60,36 @@ $mapcss = '#jbmaps2-'.$module->id.'{width:'.$mapwidth.';height:'.$mapheight.';ma
 
 //check for custom styles
 $styles = '';
-if ($mapcustomstyle && $mapcustommapname) {
-	$styles = "var styles".$module->id." = ".$mapcustomstyle."; var styledMap".$module->id." = new google.maps.StyledMapType(styles".$module->id.", {name: '".$mapcustommapname."'});";
+if ($mapcustomstyle) {
+	$styles = "var styles".$module->id." = ".$mapcustomstyle.";";
 }
 
 $script = "
 function initialize".$module->id."() {";
 //add cutom style
-if ($mapcustomstyle && $mapcustommapname) {
+if ($mapcustomstyle) {
 	$script .= $styles;
 }
 $script .= "	var mapOptions".$module->id." = {
-	center: new google.maps.LatLng(".$mapcentlat.", ".$mapcentlon."),";
-	//replace map type if custom styles
-	if ($mapcustomstyle && $mapcustommapname) {
-		$script .= "mapTypeControlOptions: {
-			mapTypeIds: [google.maps.MapTypeId.".$maptype.", 'map_style".$module->id."']
-		},";
-	} else {
-		$script .= "mapTypeId: google.maps.MapTypeId.".$maptype.",";
-	}
-
-	$script .= $controls."
+	center: new google.maps.LatLng(".$mapcentlat.", ".$mapcentlon."),
+	mapTypeId: google.maps.MapTypeId.".$maptype.",
+	".$controls."
 	draggable: ".$mapdraggable.",
 	zoom: ".$mapzoom."
 };
 var map".$module->id." = new google.maps.Map(document.getElementById('jbmaps2-".$module->id."'), mapOptions".$module->id.");";
-//associate custom style with map if needed
-if ($mapcustomstyle && $mapcustommapname) {
-	$script .= "map".$module->id.".mapTypes.set('map_style".$module->id."', styledMap".$module->id.");
-	map".$module->id.".setMapTypeId('map_style".$module->id."');";
+
+if ($mapcustomstyle) {
+	$script .= "map".$module->id.".setOptions({styles: styles".$module->id."});";
 }
+
 $script .= "
 map".$module->id.".setTilt(".$maptilt.");
 map".$module->id.".setHeading(".$mapheading.");
-}
-google.maps.event.addDomListener(window, 'load', initialize".$module->id.");
-";
+}";
+
+$script .= "google.maps.event.addDomListener(window, 'load', initialize".$module->id.");";
+
 $document->addStyleDeclaration($mapcss);
 $document->addScriptDeclaration($script);
 

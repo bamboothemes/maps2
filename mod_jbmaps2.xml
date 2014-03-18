@@ -57,6 +57,8 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+			</fieldset>
+			<fieldset name="markers">
 				<field name="markerdata" type="hidden" label=""/>
 				<field name="markers" type="markers" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC"/>
 			</fieldset>
@@ -64,7 +66,6 @@
 				<field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
 				<field name="mapcustomstyletext" type="note" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_DESC" filter="raw" />
-				<field name="mapcustommapname" type="text" label="MOD_JBMAPS2_MAPCUSTOMMAPNAME_LABEL" description="MOD_JBMAPS2_MAPCUSTOMMAPNAME_DESC" default="" /> 
 				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
 			</fieldset>
 		</fields>
