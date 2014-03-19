@@ -5,3 +5,9 @@ utility libraries
 https://code.google.com/p/google-maps-utility-library-v3/wiki/Libraries#MarkerManager
 
 http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/
+
+need to get all marker changes to update the hidden field
+
+the hidden field then updates the forms
+
+modifying the forms updates the fields and then updates the markers

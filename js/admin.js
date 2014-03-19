@@ -49,6 +49,7 @@ function updateCentreFields(lat,lng){
 //update values when map is dragged
 google.maps.event.addListener(map, 'dragend', function(event){
   updateCentreFields();
+  google.maps.event.trigger(map,'resize');
 });
 //update the map when the values are changed
 jQuery('#jform_params_mapcentlat,#jform_params_mapcentlon').on('keyup keypress blur change', function() {
@@ -163,6 +164,8 @@ google.maps.event.addListener(map,'heading_changed',function () {
 jQuery('#jform_params_mapdraggable').click(function(){
   map.set('draggable',jQuery('#jform_params_mapdraggable input[type=radio]:checked').val());
 });
+//set on pageload
+map.set('draggable',jQuery('#jform_params_mapdraggable input[type=radio]:checked').val());
 //******************end drag*******************//
 
 //******************markers***********************//
@@ -171,9 +174,13 @@ function placeMarker(location) {
   var clickedLocation = new google.maps.LatLng(location);
   var marker = new google.maps.Marker({
     position: location,
-    map: map
+    map: map,
+    markerid: locations.length + 1,
+    draggable:true
   });
-  newmarker = [ locations.length + 1, 'new marker ' + (locations.length + 1), marker.position.lat(), marker.position.lng()];
+  markerid = locations.length + 1;
+  console.log('markerid: ' + markerid);
+  newmarker = [ markerid, 'new marker ' + (locations.length + 1), marker.position.lat(), marker.position.lng()];
   locations.push(newmarker);
   updateMarkerField(locations);
   console.log(locations.join('\n'));
@@ -202,7 +209,8 @@ function plotMarkers(locations,oldlocations) {
       for (i = 0; i < locations.length; i++) {  
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(locations[i][2], locations[i][3]),
-          map: map
+          map: map,
+          draggable:true
         });
 
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -212,19 +220,24 @@ function plotMarkers(locations,oldlocations) {
           }
         })(marker, i));
 
-        google.maps.event.addListener(marker, 'dblclick', function() {
+        google.maps.event.addListener(marker, 'dblclick', function() { //only works after saving
           var x = confirm("are you sure to delete marker?");
           if(x){
             this.setMap(null);
-            //this = null;
           }
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function(event) { //only works after saving
+          newlat = event.latLng.lat();
+          newlng = event.latLng.lng();
+          console.log(newlat + '' +newlng + ' id:' + this.markerid); //can't seem to get markerid back and this.__gm_id returns different
         });
       }
       updateMarkerField(locations);
-      createMarkerFields(locations);
+      createMarkerFields();
     }
 //create the fields to edit marker data
-function createMarkerFields(locations){
+function createMarkerFields(){
   locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
   var markerHtml = '';
   locations.forEach(function(location) {
@@ -301,7 +314,7 @@ jQuery('#markers').on('click', '.btn.removemarker', function(){
 //******************general functions***********************//
 // encode(decode) html text into html entity
 function htmlEntities(str) {
-    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 //******************end general functions*******************//
 
@@ -319,7 +332,7 @@ function htmlEntities(str) {
 jQuery('ul.nav-tabs li').click(function() {
   setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
 });
-google.maps.event.trigger(map,'resize');
+setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
 //******************end re-initalize on tab click*******************//
 
 } //end initalize
