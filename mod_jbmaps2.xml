@@ -66,6 +66,7 @@
 				<field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
 				<field name="mapcustomstyletext" type="note" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_DESC" filter="raw" />
+				<field name="mapstylewarning" type="mapstylewarning" label="" />
 				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
 			</fieldset>
 		</fields>

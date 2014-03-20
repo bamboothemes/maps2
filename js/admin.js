@@ -79,10 +79,20 @@ jQuery('#jform_params_mapsearch').on('keyup', function() {
 //******************maptype***********************//
 function updateMapType(){
   var selectedmaptype = jQuery('#jform_params_maptype').val();
-  var mapStyle = JSON.parse(jQuery('#jform_params_mapcustomstyle').val());
-  if (mapStyle !== '') {
-    map.setOptions({styles: mapStyle});
-  } 
+  var mapStyle = jQuery('#jform_params_mapcustomstyle').val();
+  if (mapStyle === '') {
+    jQuery('#mapstylewarning').html('');
+  } else {
+    if (IsJsonString(mapStyle)) {
+      var mapStyle = JSON.parse(mapStyle);
+      map.setOptions({styles: mapStyle});
+      jQuery('#mapstylewarning').html('<div class="alert alert-success">The style is valid JSON</div>');
+    } else {
+      map.setOptions({styles: null});
+      jQuery('#mapstylewarning').html('<div class="alert alert-error">The style is not valid JSON</div>');
+      console.log('map style is not valid JSON string');
+    }
+  };
   if (selectedmaptype === 'SATELLITE') {
     map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
   } else if (selectedmaptype === 'HYBRID') {
@@ -97,6 +107,10 @@ function updateMapType(){
 updateMapType();
 //update type on input change
 jQuery('#jform_params_maptype').change(updateMapType);
+jQuery('#jform_params_mapcustomstyle').bind('input propertychange', 'input,textarea', function() {
+  updateMapType();
+  console.log('maptype updated');
+});
 //update input on map change
 google.maps.event.addListener( map, 'maptypeid_changed', function() { 
   jQuery('#jform_params_maptype').val(map.getMapTypeId().toUpperCase());
@@ -315,6 +329,15 @@ jQuery('#markers').on('click', '.btn.removemarker', function(){
 // encode(decode) html text into html entity
 function htmlEntities(str) {
   return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+// check for valid json
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
 //******************end general functions*******************//
 
