@@ -87,10 +87,10 @@ function updateMapType(){
     if (IsJsonString(mapStyle)) {
       var mapStyle = JSON.parse(mapStyle);
       map.setOptions({styles: mapStyle});
-      jQuery('#mapstylewarning').html('<div class="alert alert-success">The style is valid JSON</div>');
+      jQuery('#mapstylewarning').hide().html('<div class="alert alert-success">The style is valid JSON</div>').fadeIn('slow');
     } else {
       map.setOptions({styles: null});
-      jQuery('#mapstylewarning').html('<div class="alert alert-error">The style is not valid JSON</div>');
+      jQuery('#mapstylewarning').hide().html('<div class="alert alert-error">The style is not valid JSON</div>').fadeIn('slow');
       console.log('map style is not valid JSON string');
     }
   };
