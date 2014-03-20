@@ -81,6 +81,7 @@ function updateMapType(){
   var selectedmaptype = jQuery('#jform_params_maptype').val();
   var mapStyle = jQuery('#jform_params_mapcustomstyle').val();
   if (mapStyle === '') {
+    map.setOptions({styles: null});
     jQuery('#mapstylewarning').html('');
   } else {
     if (IsJsonString(mapStyle)) {
