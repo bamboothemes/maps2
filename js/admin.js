@@ -235,7 +235,7 @@ function updateFieldsFromMap(){
     markerInfo = [lat,lng,title,icon,shadow];
     markerArray.push(markerInfo);
     //create the fields with the information
-    markerHtml += '<fieldset class="form-inline" data-type="markerfieldset">\
+    markerHtml += '<fieldset class="form-inline" id="markerfieldset' + i +'" data-type="markerfieldset">\
     <legend>Marker ' + i  + '</legend>\
     <input data-type="markerid" type="hidden" value="' + i +'">\
     <label>Title</label>\
@@ -296,6 +296,15 @@ function updateMapFromFields(){
 //update markers when editing fields
 jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
   updateMapFromFields();
+});
+//update markers when one is deleted
+jQuery('#markers').on('click', '.btn.removemarker', function(){
+  var x = confirm("are you sure to delete this marker?");
+  if(x){
+    fieldset = '#markerfieldset' + jQuery(this).data('marker-id');
+    jQuery(fieldset).remove();
+    updateMapFromFields();
+  }
 });
 //add markers on pageload
 if(jQuery('input#jform_params_markerdata').val() !== ''){
