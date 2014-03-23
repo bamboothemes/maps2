@@ -11,3 +11,12 @@ need to get all marker changes to update the hidden field
 the hidden field then updates the forms
 
 modifying the forms updates the fields and then updates the markers
+
+dynamic pins
+http://stackoverflow.com/questions/7095574/google-maps-api-3-custom-marker-color-for-default-dot-marker
+
+default marker images
+http://mabp.kiev.ua/2010/01/12/google-map-markers/
+
+info windows 
+http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-infowindows/

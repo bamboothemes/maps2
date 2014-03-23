@@ -184,166 +184,91 @@ map.set('draggable',jQuery('#jform_params_mapdraggable input[type=radio]:checked
 //******************end drag*******************//
 
 //******************markers***********************//
-var locations = [];
-function placeMarker(location) {
-  var clickedLocation = new google.maps.LatLng(location);
+//Global marker array
+var markers = [];
+google.maps.event.addListener(map, 'click', function(event) {
+  addMarker(event.latLng);
+});
+// Add a marker to the map and push to the array.
+function addMarker(location) {
   var marker = new google.maps.Marker({
     position: location,
-    map: map,
-    markerid: locations.length + 1,
-    draggable:true
+    title: null,
+    icon: 'http://maps.google.com/mapfiles/ms/micons/restaurant.png',
+    shadow: 'http://maps.google.com/mapfiles/ms/micons/restaurant.shadow.png',
+    draggable: true,
+    map: map
   });
-  markerid = locations.length + 1;
-  console.log('markerid: ' + markerid);
-  newmarker = [ markerid, 'new marker ' + (locations.length + 1), marker.position.lat(), marker.position.lng()];
-  locations.push(newmarker);
-  updateMarkerField(locations);
-  console.log(locations.join('\n'));
+  markers.push(marker);
+  updateFieldsFromMap(markers);
 }
-//add a marker on click
-google.maps.event.addListener(map, 'click', function(event) {
-  placeMarker(event.latLng);
-  createMarkerFields();
-});
-//update the field holding the information
-function updateMarkerField(markerarray) {
-  jQuery('input#jform_params_markerdata').val(JSON.stringify(markerarray));
+// Sets the map on all markers in the array.
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
 }
-//plot the saved markers
-function plotMarkers(locations,oldlocations) {
-      // Sets the map on all markers in the array.
-      function setAllMap(map) {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(map);
-        }
-      }
-      setAllMap(null);
-      //marker.setMap(null);      
-      var infowindow = new google.maps.InfoWindow();
-      var marker, i;
-      for (i = 0; i < locations.length; i++) {  
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(locations[i][2], locations[i][3]),
-          map: map,
-          draggable:true
-        });
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setAllMap(null);
+}
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
 
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-          return function() {
-            infowindow.setContent(locations[i][1]);
-            infowindow.open(map, marker);
-          }
-        })(marker, i));
-
-        google.maps.event.addListener(marker, 'dblclick', function() { //only works after saving
-          var x = confirm("are you sure to delete marker?");
-          if(x){
-            this.setMap(null);
-          }
-        });
-
-        google.maps.event.addListener(marker, 'dragend', function(event) { //only works after saving
-          newlat = event.latLng.lat();
-          newlng = event.latLng.lng();
-          console.log(newlat + '' +newlng + ' id:' + this.markerid); //can't seem to get markerid back and this.__gm_id returns different
-        });
-      }
-      updateMarkerField(locations);
-      createMarkerFields();
-    }
-//create the fields to edit marker data
-function createMarkerFields(){
-  locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
-  var markerHtml = '';
-  locations.forEach(function(location) {
-    //console.log(location);
-    /*jshint multistr: true */
+function updateFieldsFromMap(markers){
+  markerArray = [];
+  markerHtml = '';
+  for (var i=0; i<markers.length; i++) {
+    lat = markers[i].getPosition().lat();
+    lng = markers[i].getPosition().lng();
+    title = markers[i].getTitle();
+    icon = markers[i].getIcon();
+    shadow = markers[i].getShadow();
+    markerInfo = [lat,lng,title,icon,shadow];
+    markerArray.push(markerInfo);
+    //create the fields with the information
     markerHtml += '<fieldset class="form-inline" data-type="markerfieldset">\
-    <legend>Marker' + location[0]  + '</legend>\
-    <input data-type="markerid" type="hidden" value="' + location[0] +'">\
-    <label>Text</label>\
-    <textarea data-type="markerhtml" rows="3">' + location[1] + '</textarea>\
+    <legend>Marker ' + i  + '</legend>\
+    <input data-type="markerid" type="hidden" value="' + i +'">\
+    <label>Title</label>\
+    <textarea data-type="markerhtml" rows="3">' + title + '</textarea>\
     <label>Lat:</label>\
-    <input class="input-mini" data-type="markerlat" type="text" value="' + location[2] +'">\
+    <input class="input-mini" data-type="markerlat" type="text" value="' + lat +'">\
     <label>Lng:</label>\
-    <input class="input-mini" data-type="markerlng" type="text" value="' + location[3] +'">\
-    <button data-marker-id="' + location[0]  + '" class="btn btn-mini btn-danger removemarker" type="button"><i class="icon-remove"></i>Delete Marker</button>\
+    <input class="input-mini" data-type="markerlng" type="text" value="' + lng +'">\
+    <button data-marker-id="' + i  + '" class="btn btn-mini btn-danger removemarker" type="button"><i class="icon-remove"></i>Delete Marker</button>\
     </fieldset>';
-  });
+  }
+  //update the hidden field
+  jQuery('input#jform_params_markerdata').val(JSON.stringify(markerArray));
+  //update the fields
   document.getElementById('markers').innerHTML = markerHtml;
 }
-function updateMarkerDatafromFields(){
-  markerdata = [];
-  jQuery('fieldset[data-type="markerfieldset"]').each(function(){
-    id = parseInt(jQuery(this).find('input[data-type="markerid"]').val());
-    html = htmlEntities(jQuery(this).find('textarea[data-type="markerhtml"]').val());
-    lat = parseFloat(jQuery(this).find('input[data-type="markerlat"]').val());
-    lng = parseFloat(jQuery(this).find('input[data-type="markerlng"]').val());
-    //console.log(id,html,lat,lng);
-    markerdata.push([id,html,lat,lng]);
-    
-  });
-  updateMarkerField(markerdata);
-}
-//update marker array when editing
-jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
-  updateMarkerDatafromFields();
-});
-function removeMarker(id) {
-      //remove the marker from the array and replot
-      var locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
-      var newlocations = [];
-      locations.forEach(function(location) {
-        if (parseInt(location[0]) !== id) {
-          //console.debug(location);
-          newmarker = [newlocations.length + 1, location[1], location[2], location[3]];
-          newlocations.push(newmarker); 
-        } else {
-          console.log('remove:' + id);
-          //location[0].setMap(null); need to remove the marker from the map
-        }
-      });
-      
-      //replot markers and update fields
-      plotMarkers(newlocations,locations);
-      //console.debug(JSON.stringify(newlocations));
-    }
-
-//check for markers on pageload
-if(jQuery('input#jform_params_markerdata').val() !== ''){
-  locations = JSON.parse(jQuery('input#jform_params_markerdata').val());
-  plotMarkers(locations);
-  createMarkerFields();
-}
-//remove a marker if clicked
-jQuery('#markers').on('click', '.btn.removemarker', function(){
-  var x = confirm("are you sure to delete marker?");
-  if(x){
-    id = jQuery(this).data('marker-id');
-    removeMarker(id);
+function updateMapFromFields(){
+  deleteMarkers();
+  savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
+  for (i = 0; i < savedMarkers.length; i++) {
+  console.debug(savedMarkers[i]); 
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(savedMarkers[i][0], savedMarkers[i][1]),
+      title: savedMarkers[i][2],
+      icon: savedMarkers[i][3],
+      shadow: savedMarkers[i][5],
+      draggable: true,
+      map: map
+    });
+    markers.push(marker);
   }
-});
+}
+//add markers on pageload
+if(jQuery('input#jform_params_markerdata').val() !== ''){
+  updateMapFromFields();
+}
 //******************end markers*******************//
 
-
-//******************general functions***********************//
-// encode(decode) html text into html entity
-function htmlEntities(str) {
-  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-// check for valid json
-function IsJsonString(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
-//******************end general functions*******************//
-
-//******************o***********************//
-//******************end o*******************//
 //******************o***********************//
 //******************end o*******************//
 
@@ -360,6 +285,24 @@ setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
 //******************end re-initalize on tab click*******************//
 
 } //end initalize
+
+//******************general functions***********************//
+// encode(decode) html text into html entity
+function htmlEntities(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+// check for valid json
+function IsJsonString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
+//******************end general functions*******************//
+
 google.maps.event.addDomListener(window, 'load', initialize);
 
 jQuery(window).load(function() {
