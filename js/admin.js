@@ -186,6 +186,7 @@ map.set('draggable',jQuery('#jform_params_mapdraggable input[type=radio]:checked
 //******************markers***********************//
 //Global marker array
 var markers = [];
+//add a new marker
 google.maps.event.addListener(map, 'click', function(event) {
   addMarker(event.latLng);
 });
@@ -194,13 +195,17 @@ function addMarker(location) {
   var marker = new google.maps.Marker({
     position: location,
     title: null,
-    icon: 'http://maps.google.com/mapfiles/ms/micons/restaurant.png',
-    shadow: 'http://maps.google.com/mapfiles/ms/micons/restaurant.shadow.png',
+    icon: 'http://maps.google.com/mapfiles/marker.png',
+    shadow: 'http://maps.google.com/mapfiles/shadow50.png',
     draggable: true,
     map: map
   });
   markers.push(marker);
   updateFieldsFromMap(markers);
+  //update on drag
+  google.maps.event.addListener(marker, 'dragend', function(event) {
+    updateFieldsFromMap();
+  });
 }
 // Sets the map on all markers in the array.
 function setAllMap(map) {
@@ -218,7 +223,7 @@ function deleteMarkers() {
   markers = [];
 }
 
-function updateFieldsFromMap(markers){
+function updateFieldsFromMap(){
   markerArray = [];
   markerHtml = '';
   for (var i=0; i<markers.length; i++) {
@@ -234,7 +239,13 @@ function updateFieldsFromMap(markers){
     <legend>Marker ' + i  + '</legend>\
     <input data-type="markerid" type="hidden" value="' + i +'">\
     <label>Title</label>\
+    <input class="input" data-type="markertitle" type="text" value="' + title +'">\
+    <label>Text</label>\
     <textarea data-type="markerhtml" rows="3">' + title + '</textarea>\
+    <label>Icon</label>\
+    <input class="input-mini" data-type="markericon" type="text" value="' + icon +'">\
+    <label>Icon Shadow</label>\
+    <input class="input-mini" data-type="markericonshadow" type="text" value="' + shadow +'">\
     <label>Lat:</label>\
     <input class="input-mini" data-type="markerlat" type="text" value="' + lat +'">\
     <label>Lng:</label>\
@@ -249,9 +260,24 @@ function updateFieldsFromMap(markers){
 }
 function updateMapFromFields(){
   deleteMarkers();
+  markerArray = [];
+  //update the hidden field from forms if they exist
+  if (jQuery('fieldset[data-type="markerfieldset"]').length) {
+    jQuery('fieldset[data-type="markerfieldset"]').each(function(){
+    lat = parseFloat(jQuery(this).find('input[data-type="markerlat"]').val());
+    lng = parseFloat(jQuery(this).find('input[data-type="markerlng"]').val());
+    title = jQuery(this).find('input[data-type="markertitle"]').val();
+    icon = jQuery(this).find('input[data-type="markericon"]').val();
+    shadow = jQuery(this).find('input[data-type="markericonshadow"]').val();
+    markerInfo = [lat,lng,title,icon,shadow];
+    markerArray.push(markerInfo);    
+  });
+  jQuery('input#jform_params_markerdata').val(JSON.stringify(markerArray));
+  };
+  //use the hidden field to update markers
   savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
   for (i = 0; i < savedMarkers.length; i++) {
-  console.debug(savedMarkers[i]); 
+    console.debug(savedMarkers[i]); 
     marker = new google.maps.Marker({
       position: new google.maps.LatLng(savedMarkers[i][0], savedMarkers[i][1]),
       title: savedMarkers[i][2],
@@ -262,10 +288,19 @@ function updateMapFromFields(){
     });
     markers.push(marker);
   }
+  //update on drag
+  google.maps.event.addListener(marker, 'dragend', function(event) {
+    updateFieldsFromMap();
+  });
 }
+//update markers when editing fields
+jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
+  updateMapFromFields();
+});
 //add markers on pageload
 if(jQuery('input#jform_params_markerdata').val() !== ''){
   updateMapFromFields();
+  updateFieldsFromMap();
 }
 //******************end markers*******************//
 
