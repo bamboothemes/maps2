@@ -63,7 +63,7 @@
 					<option value="click">click</option>
 					<option value="mouseover">mouseover</option>
 				</field>
-				<field name="markerdata" type="hidden" label=""/>
+				<field name="markerdata" type="hidden" label="" filter="safehtml" />
 				<field name="markers" type="markers" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC"/>
 			</fieldset>
 			<fieldset name="advanced">
