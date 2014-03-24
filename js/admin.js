@@ -198,6 +198,7 @@ function addMarker(location) {
     title: null,
     icon: 'http://maps.google.com/mapfiles/marker.png',
     shadow: 'http://maps.google.com/mapfiles/shadow50.png',
+    windowcontent: '',
     draggable: true,
     map: map
   });
@@ -249,7 +250,8 @@ function updateFieldsFromMap(){
       title = markers[i].getTitle();
       icon = markers[i].getIcon();
       shadow = markers[i].getShadow();
-      markerInfo = [markerid,lat,lng,title,icon,shadow];
+      windowcontent = markers[i].windowcontent;
+      markerInfo = [markerid,lat,lng,title,icon,shadow,windowcontent];
       markerArray.push(markerInfo);
     //create the fields with the information
     /*jshint multistr: true */
@@ -259,7 +261,7 @@ function updateFieldsFromMap(){
     <label>Title</label>\
     <input class="input" data-type="markertitle" type="text" value="' + title +'">\
     <label>Text</label>\
-    <textarea data-type="markerhtml" rows="3">' + title + '</textarea>\
+    <textarea data-type="markerwindowcontent" rows="3">' + windowcontent + '</textarea>\
     <label>Icon</label>\
     <input class="input-mini" data-type="markericon" type="text" value="' + icon +'">\
     <label>Icon Shadow</label>\
@@ -288,7 +290,8 @@ function updateMapFromFields(){
       title = jQuery(this).find('input[data-type="markertitle"]').val();
       icon = jQuery(this).find('input[data-type="markericon"]').val();
       shadow = jQuery(this).find('input[data-type="markericonshadow"]').val();
-      markerInfo = [i,lat,lng,title,icon,shadow];
+      windowcontent = jQuery(this).find('textarea[data-type="markerwindowcontent"]').val();
+      markerInfo = [i,lat,lng,title,icon,shadow,windowcontent];
       markerArray.push(markerInfo);    
     });
     jQuery('input#jform_params_markerdata').val(JSON.stringify(markerArray));
@@ -303,6 +306,7 @@ function updateMapFromFields(){
       title: savedMarkers[i][3],
       icon: savedMarkers[i][4],
       shadow: savedMarkers[i][5],
+      windowcontent: savedMarkers[i][6],
       draggable: true,
       map: map
     });
@@ -321,11 +325,19 @@ function updateMapFromFields(){
         updateFieldsFromMap();
       }
     });
-
   //update on drag
   google.maps.event.addListener(marker, 'dragend', function(event) {
     updateFieldsFromMap();
   });
+  //info windows
+  var infowindow = new google.maps.InfoWindow();
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infowindow.setContent(this.windowcontent);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+  
 }
 }
 //update markers when editing fields
