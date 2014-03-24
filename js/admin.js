@@ -18,6 +18,7 @@ function updateMapTypeSize(){
   var mapHeight = jQuery('#jform_params_mapheight').val();
   var animateMap = jQuery('#map').animate({width : mapWidth, height : mapHeight});
   jQuery.when.apply(this, animateMap).done(function() {
+    console.log('width:' + mapWidth);
     google.maps.event.trigger(map,'resize'); 
   });
   //TODO add a warning if the map is set to be larger than the current div
