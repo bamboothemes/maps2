@@ -35,8 +35,8 @@ function updateMapCentre(lat,lng){
   map.setCenter(new google.maps.LatLng(lat, lng));
 }
 //update centre on pageload
-var latInput = jQuery('#jform_params_mapcentlat').val();
-var lngInput = jQuery('#jform_params_mapcentlon').val();
+var latInput = parseFloat(jQuery('#jform_params_mapcentlat').val());
+var lngInput = parseFloat(jQuery('#jform_params_mapcentlon').val());
 updateMapCentre(latInput, lngInput);
 
 function updateCentreFields(lat,lng){
@@ -333,8 +333,10 @@ function updateMapFromFields(){
   var infowindow = new google.maps.InfoWindow();
   google.maps.event.addListener(marker, 'click', (function(marker, i) {
     return function() {
-      infowindow.setContent(this.windowcontent);
-      infowindow.open(map, marker);
+      if (this.windowcontent !== '') {
+        infowindow.setContent(this.windowcontent);
+        infowindow.open(map, marker);
+      };
     }
   })(marker, i));
   
@@ -401,7 +403,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 jQuery(window).load(function() {
   if (localStorage.getItem('tab-href')) {
     //tab state is saved so need to delay the resize
-    setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 200);
+    setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 220);
   } else {
     setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
   }

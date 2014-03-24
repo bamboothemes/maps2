@@ -34,6 +34,7 @@ $mapcentlat			= $params->get('mapcentlat', '54.525961');
 $mapcentlon			= $params->get('mapcentlon', '15.255119');
 $maptype			= $params->get('maptype', 'ROADMAP');
 $mapdraggable		= $params->get('mapdraggable') == 1 ? 1 : 0;
+$markerinfobehaviour= $params->get('markerinfobehaviour', 'click');
 $markerdata			= $params->get('markerdata', '');
 $mapcustomstyle		= $params->get('mapcustomstyle', '');
 $mapcustommapname	= $params->get('mapcustommapname', '');
@@ -78,6 +79,31 @@ $script .= "	var mapOptions".$module->id." = {
 	zoom: ".$mapzoom."
 };
 var map".$module->id." = new google.maps.Map(document.getElementById('jbmaps2-".$module->id."'), mapOptions".$module->id.");";
+
+if ($markerdata && $markerdata !== '[]') {
+	$script .= "var infowindow".$module->id." = new google.maps.InfoWindow();
+	var markers".$module->id." = ".$markerdata.";
+	for( i = 0; i < markers".$module->id.".length; i++ ) {
+		var position = new google.maps.LatLng(markers".$module->id."[i][1], markers".$module->id."[i][2]);
+		marker = new google.maps.Marker({
+			position: position,
+			title: markers".$module->id."[i][3],
+			icon: markers".$module->id."[i][4],
+			shadow: markers".$module->id."[i][5],
+			windowcontent: markers".$module->id."[i][6],
+			map: map".$module->id."
+		});
+google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	return function() {
+		if (this.windowcontent !== '') {
+			infowindow".$module->id.".setContent(this.windowcontent);
+			infowindow".$module->id.".open(map".$module->id.", marker);
+		};
+	}
+})(marker, i));
+}
+";
+}
 
 if ($mapcustomstyle) {
 	$script .= "map".$module->id.".setOptions({styles: styles".$module->id."});";
