@@ -26,6 +26,7 @@
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_jbmaps2/fields">
 			<fieldset name="mapsettings">
+				<field name="markerhelpers" type="markerhelpers" label="" />
 				<field name="previewmap" type="previewmap" label="MOD_JBMAPS2_PREVIEWMAP_LABEL" description="MOD_JBMAPS2_PREVIEWMAP_DESC" />
 				<field name="mapsearch" type="text" default="" label="MOD_JBMAPS2_MAPSEARCH_LABEL" description="MOD_JBMAPS2_MAPSEARCH_DESC" />
 				<field name="mapwidth" type="text" default="600px" label="MOD_JBMAPS2_MAPWIDTH_LABEL" description="MOD_JBMAPS2_MAPWIDTH_DESC" class="input-mini jbmaps2-mapwidth" />

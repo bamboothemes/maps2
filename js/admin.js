@@ -211,7 +211,7 @@ function addMarker(location) {
   });
   //remove on dbl click
   google.maps.event.addListener(marker, 'dblclick', function(event) {
-    var x = confirm('delete this marker?' + this.markerid);
+    var x = confirm('Delete this Marker?' + this.markerid);
     if(x){
       this.setMap(null);
       id = this.markerid;
@@ -274,7 +274,16 @@ function updateFieldsFromMap(){
     <button data-marker-id="' + markerid  + '" class="btn btn-mini btn-danger removemarker" type="button"><i class="icon-remove"></i>Delete Marker</button>\
     </fieldset>';
   }
-};
+    //add marker helper butttons
+    /*jshint multistr: true */
+    markerHelpers = '<fieldset class="form-inline">\
+    <a class="btn btn-mini removeallmarkers" data-type="deleteallmarkers">Remove all markers</a>\
+    <a class="btn btn-mini fitmarkers" data-type="fitmarkersmarkers">Fit Map to Markers</a>\
+    </fieldset>';
+    document.getElementById('markerhelpers').innerHTML = markerHelpers;
+  } else {
+    document.getElementById('markerhelpers').innerHTML = '';
+  };
   //update the hidden field
   jQuery('input#jform_params_markerdata').val(JSON.stringify(markerArray));
   //update the fields
@@ -299,8 +308,8 @@ function updateMapFromFields(){
   };
   //use the hidden field to update markers
   if (jQuery('input#jform_params_markerdata').val() !== '') {
-        savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
-  for (i = 0; i < savedMarkers.length; i++) {
+    savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
+    for (i = 0; i < savedMarkers.length; i++) {
     //console.debug(savedMarkers[i]); 
     marker = new google.maps.Marker({
       position: new google.maps.LatLng(savedMarkers[i][1], savedMarkers[i][2]),
@@ -315,7 +324,7 @@ function updateMapFromFields(){
     markers.push(marker);
     //remove on dbl click
     google.maps.event.addListener(marker, 'dblclick', function(event) {
-      var x = confirm('delete this marker?' + this.markerid);
+      var x = confirm('Delete this Marker?' + this.markerid);
       if(x){
         this.setMap(null);
         id = this.markerid;
@@ -343,7 +352,7 @@ function updateMapFromFields(){
   })(marker, i));
   
 }
-  };
+};
 }
 //update markers when editing fields
 jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
@@ -351,7 +360,7 @@ jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
 });
 //update markers when one is deleted with button
 jQuery('#markers').on('click', '.btn.removemarker', function(){
-  var x = confirm('delete this marker?');
+  var x = confirm('Delete this Marker?');
   if(x){
     fieldset = '#markerfieldset' + jQuery(this).data('marker-id');
     jQuery(fieldset).remove();
@@ -368,8 +377,30 @@ if(jQuery('input#jform_params_markerdata').val() !== ''){
 }
 //******************end markers*******************//
 
-//******************o***********************//
-//******************end o*******************//
+//******************marker helper buttons***********************//
+//remove all
+jQuery('#markerhelpers').on('click', '.btn.removeallmarkers', function(){
+  var x = confirm('Delete all Markers? (This cannot be undone!)');
+  if(x){
+    deleteMarkers();
+    updateFieldsFromMap();
+  }
+});
+//fit to markers
+jQuery('#markerhelpers').on('click', '.btn.fitmarkers', function(){
+  var LatLngList = [];
+  for (var i=0; i<markers.length; i++) {
+    lat = markers[i].getPosition().lat();
+    lng = markers[i].getPosition().lng();
+    LatLngList.push(new google.maps.LatLng (lat,lng));
+  };
+var bounds = new google.maps.LatLngBounds ();
+for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
+  bounds.extend (LatLngList[i]);
+}
+map.fitBounds (bounds);
+});
+//******************end marker helper buttons*******************//
 
 //******************re-initalize on tab click***********************//
 /*[].forEach.call(document.querySelectorAll('ul.nav-tabs li'), function(el) {

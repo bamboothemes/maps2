@@ -26,3 +26,6 @@ http://stackoverflow.com/questions/11378450/google-map-api-v3-how-to-add-custom-
 
 css fix for controls
 http://stackoverflow.com/questions/9904379/google-map-zoom-controls-not-displaying-correctly/18723355#18723355
+
+zoom to markers
+http://blog.shamess.info/2009/09/29/zoom-to-fit-all-markers-on-google-maps-api-v3/

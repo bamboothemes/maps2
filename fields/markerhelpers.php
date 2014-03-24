@@ -4,9 +4,9 @@ defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.form.formfield');
 
-class JFormFieldMapstyleWarning extends JFormField {
+class JFormFieldMarkerHelpers extends JFormField {
 
 	public function getInput() {
-		return '<div id="mapstylewarning" style="width:400px"></div>';
+		return '<div id="markerhelpers"></div>';
 	}
 }
