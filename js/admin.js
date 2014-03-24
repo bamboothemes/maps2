@@ -213,7 +213,11 @@ function addMarker(location) {
     if(x){
       this.setMap(null);
       id = this.markerid;
-      markers.splice(id,1);
+      if (markers.length === 1) {
+        markers = [];
+      }else{
+        markers.splice(id,1);
+      };
       updateFieldsFromMap();
     }
   });
@@ -309,7 +313,11 @@ function updateMapFromFields(){
       if(x){
         this.setMap(null);
         id = this.markerid;
-        markers.splice(id,1);
+        if (markers.length === 1) {
+          markers = [];
+        }else{
+          markers.splice(id,1);
+        };
         updateFieldsFromMap();
       }
     });
