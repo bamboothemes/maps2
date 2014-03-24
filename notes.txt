@@ -23,3 +23,6 @@ http://you.arenot.me/2010/06/29/google-maps-api-v3-0-multiple-markers-multiple-i
 
 custom marker data
 http://stackoverflow.com/questions/11378450/google-map-api-v3-how-to-add-custom-data-to-markers
+
+css fix for controls
+http://stackoverflow.com/questions/9904379/google-map-zoom-controls-not-displaying-correctly/18723355#18723355

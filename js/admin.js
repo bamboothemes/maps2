@@ -332,11 +332,11 @@ function updateMapFromFields(){
   //info windows
   var infowindow = new google.maps.InfoWindow();
   google.maps.event.addListener(marker, 'click', (function(marker, i) {
-          return function() {
-            infowindow.setContent(this.windowcontent);
-            infowindow.open(map, marker);
-          }
-        })(marker, i));
+    return function() {
+      infowindow.setContent(this.windowcontent);
+      infowindow.open(map, marker);
+    }
+  })(marker, i));
   
 }
 }
@@ -375,7 +375,6 @@ if(jQuery('input#jform_params_markerdata').val() !== ''){
 jQuery('ul.nav-tabs li').click(function() {
   setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
 });
-setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
 //******************end re-initalize on tab click*******************//
 
 } //end initalize
@@ -400,5 +399,10 @@ function IsJsonString(str) {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 jQuery(window).load(function() {
- google.maps.event.trigger(map,'resize');
+  if (localStorage.getItem('tab-href')) {
+    //tab state is saved so need to delay the resize
+    setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 200);
+  } else {
+    setTimeout(function(){ google.maps.event.trigger(map,'resize');}, 100);
+  }
 });
