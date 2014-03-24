@@ -39,7 +39,7 @@ $markerdata			= $params->get('markerdata', '');
 $mapcustomstyle		= $params->get('mapcustomstyle', '');
 $mapcustommapname	= $params->get('mapcustommapname', '');
 //$					= $params->get('', '');
-echo "markers:".var_dump($markerdata);
+
 //check which controls should be on and off
 $allmapcontrols = array('zoomControl','panControl','mapTypeControl','scaleControl','streetViewControl','rotateControl','overviewMapControl');
 $controls = '';
@@ -92,17 +92,33 @@ if ($markerdata && $markerdata !== '[]') {
 			shadow: markers".$module->id."[i][5],
 			windowcontent: markers".$module->id."[i][6],
 			map: map".$module->id."
-		});
-google.maps.event.addListener(marker, 'click', (function(marker, i) {
-	return function() {
-		if (this.windowcontent !== '') {
-			infowindow".$module->id.".setContent(this.windowcontent);
-			infowindow".$module->id.".open(map".$module->id.", marker);
-		};
-	}
-})(marker, i));
-}
+		});";
+if ($markerinfobehaviour === 'mouseover') {
+	$script .= "google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+		return function() {
+			if (this.windowcontent !== '') {
+				infowindow".$module->id.".setContent(this.windowcontent);
+				infowindow".$module->id.".open(map".$module->id.", marker);
+			};
+		}
+	})(marker, i));
+
+google.maps.event.addListener(marker, 'mouseout', function() { 
+	infowindow".$module->id.".close();
+});
 ";
+} else {
+	$script .= "google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		return function() {
+			if (this.windowcontent !== '') {
+				infowindow".$module->id.".setContent(this.windowcontent);
+				infowindow".$module->id.".open(map".$module->id.", marker);
+			};
+		}
+	})(marker, i));
+";
+}
+$script .= "}";
 }
 
 if ($mapcustomstyle) {

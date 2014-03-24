@@ -297,7 +297,8 @@ function updateMapFromFields(){
     jQuery('input#jform_params_markerdata').val(JSON.stringify(markerArray));
   };
   //use the hidden field to update markers
-  savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
+  if (jQuery('input#jform_params_markerdata').val() !== '') {
+        savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
   for (i = 0; i < savedMarkers.length; i++) {
     console.debug(savedMarkers[i]); 
     marker = new google.maps.Marker({
@@ -341,6 +342,7 @@ function updateMapFromFields(){
   })(marker, i));
   
 }
+  };
 }
 //update markers when editing fields
 jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
