@@ -18,7 +18,7 @@ function updateMapTypeSize(){
   var mapHeight = jQuery('#jform_params_mapheight').val();
   var animateMap = jQuery('#map').animate({width : mapWidth, height : mapHeight});
   jQuery.when.apply(this, animateMap).done(function() {
-    console.log('width:' + mapWidth);
+    //console.log('width:' + mapWidth);
     google.maps.event.trigger(map,'resize'); 
   });
   //TODO add a warning if the map is set to be larger than the current div
@@ -277,8 +277,8 @@ function updateFieldsFromMap(){
     //add marker helper butttons
     /*jshint multistr: true */
     markerHelpers = '<fieldset class="form-inline">\
-    <a class="btn btn-mini removeallmarkers" data-type="deleteallmarkers">Remove all markers</a>\
-    <a class="btn btn-mini fitmarkers" data-type="fitmarkersmarkers">Fit Map to Markers</a>\
+    <a class="btn btn-mini btn-danger removeallmarkers" data-type="deleteallmarkers">Remove all markers</a>\
+    <a class="btn btn-mini btn-primary fitmarkers" data-type="fitmarkersmarkers">Fit Map to Markers</a>\
     </fieldset>';
     document.getElementById('markerhelpers').innerHTML = markerHelpers;
   } else {

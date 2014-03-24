@@ -12,6 +12,7 @@ class JFormFieldPreviewMap extends JFormField {
 		$document->addScript('http://maps.google.com/maps/api/js?sensor=false');
 		$document->addScript(JURI::root(true). '/modules/mod_jbmaps2/js/jquery.gomap-1.3.2.min.js');
 		$document->addScript(JURI::root(true). '/modules/mod_jbmaps2/js/admin.js');
+		$document->addScript(JURI::root(true). '/modules/mod_jbmaps2/js/bootbox.min.js');
 
 return '<div id="map" style="height:300px;width:500px"></div><div id="jbmaps2-notices"></div>';
 }
