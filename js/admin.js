@@ -91,7 +91,7 @@ function updateMapType(){
     } else {
       map.setOptions({styles: null});
       jQuery('#mapstylewarning').hide().html('<div class="alert alert-error">The style is not valid JSON</div>').fadeIn('slow');
-      console.log('map style is not valid JSON string');
+      //console.log('map style is not valid JSON string');
     }
   };
   if (selectedmaptype === 'SATELLITE') {
@@ -110,7 +110,7 @@ updateMapType();
 jQuery('#jform_params_maptype').change(updateMapType);
 jQuery('#jform_params_mapcustomstyle').bind('input propertychange', 'input,textarea', function() {
   updateMapType();
-  console.log('maptype updated');
+  //console.log('maptype updated');
 });
 //update input on map change
 google.maps.event.addListener( map, 'maptypeid_changed', function() { 
@@ -300,7 +300,7 @@ function updateMapFromFields(){
   if (jQuery('input#jform_params_markerdata').val() !== '') {
         savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
   for (i = 0; i < savedMarkers.length; i++) {
-    console.debug(savedMarkers[i]); 
+    //console.debug(savedMarkers[i]); 
     marker = new google.maps.Marker({
       position: new google.maps.LatLng(savedMarkers[i][1], savedMarkers[i][2]),
       markerid: savedMarkers[i][0],
