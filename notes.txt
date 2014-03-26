@@ -29,3 +29,6 @@ http://stackoverflow.com/questions/9904379/google-map-zoom-controls-not-displayi
 
 zoom to markers
 http://blog.shamess.info/2009/09/29/zoom-to-fit-all-markers-on-google-maps-api-v3/
+
+weather and cloud layers
+https://developers.google.com/maps/documentation/javascript/examples/layer-weather
