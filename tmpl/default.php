@@ -68,6 +68,14 @@ if ($markerinfobehaviour === 'mouseover') {
 	$script .= "google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
 		return function() {
 			if (this.windowcontent !== '') {
+        if (infowindow".$module->id.".getMap(this)) {
+          infowindow".$module->id.".close(map".$module->id.", marker);
+        }else{
+          infowindow".$module->id.".setContent(this.windowcontent);
+          infowindow".$module->id.".open(map".$module->id.", marker);
+        };
+      };
+			if (this.windowcontent !== '') {
 				infowindow".$module->id.".setContent(this.windowcontent);
 				infowindow".$module->id.".open(map".$module->id.", marker);
 			};
@@ -82,8 +90,12 @@ google.maps.event.addListener(marker, 'mouseout', function() {
 	$script .= "google.maps.event.addListener(marker, 'click', (function(marker, i) {
 		return function() {
 			if (this.windowcontent !== '') {
-				infowindow".$module->id.".setContent(this.windowcontent);
-				infowindow".$module->id.".open(map".$module->id.", marker);
+				if (infowindow".$module->id.".getMap(this)) {
+					infowindow".$module->id.".close(map".$module->id.", marker);
+				}else{
+					infowindow".$module->id.".setContent(this.windowcontent);
+					infowindow".$module->id.".open(map".$module->id.", marker);
+				};
 			};
 		}
 	})(marker, i));
