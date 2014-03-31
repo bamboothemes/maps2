@@ -217,6 +217,16 @@ jQuery('#jform_params_mapweatherlayer').click(function(){
     jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide(500);
   };
 });
+//check if we need to hide fields on pageload
+if (parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val())) {
+  jQuery('#jform_params_mapweatherunits').closest('.control-group').show(500);
+  jQuery('#jform_params_mapwindunits').closest('.control-group').show(500);
+  jQuery('#jform_params_mapweatherlabels').closest('.control-group').show(500);
+}else{
+  jQuery('#jform_params_mapweatherunits').closest('.control-group').hide(500);
+  jQuery('#jform_params_mapwindunits').closest('.control-group').hide(500);
+  jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide(500);
+};
 //toggle units
 jQuery('#jform_params_mapweatherunits').click(function(){
   updateTemperature(jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val());

@@ -35,7 +35,7 @@ $mapcustommapname	= $params->get('mapcustommapname', '');
 $mapweatherlayer	= $params->get('mapweatherlayer', 0);
 $mapweatherunits	= $params->get('mapweatherunits', 'google.maps.weather.TemperatureUnit.CELSIUS');
 $mapwindunits		= $params->get('mapwindunits', 'google.maps.weather.WindSpeedUnit.METERS_PER_SECOND');
-$mapweatherlabels	= $params->get('mapweatherlabels', 0);
+$mapweatherlabels	= $params->get('mapweatherlabels') == 0 ? 'null' : $params->get('mapweatherlabels');
 $mapcloudlayer		= $params->get('mapcloudlayer', 0);
 $maptrafficlayer	= $params->get('maptrafficlayer', 0);
 $maptransitlayer	= $params->get('maptransitlayer', 0);
@@ -49,7 +49,7 @@ $mapkmllayer		= $params->get('mapkmllayer', 0);
 //$			= $params->get('', '');
 
 //add the main script
-$mapsScript = 'http://maps.google.com/maps/api/js?sensor=false&amp;libraries=weather&amp;language='.$languageCode;
+$mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;libraries=weather&amp;language='.$languageCode;
 $document->addScript($mapsScript);
 
 
@@ -138,10 +138,13 @@ if ($mapcustomstyle) {
 	$script .= "map".$module->id.".setOptions({styles: styles".$module->id."});";
 }
 
-$script .= "
-map".$module->id.".setTilt(".$maptilt.");
-map".$module->id.".setHeading(".$mapheading.");
-";
+if ($maptilt) {
+	$script .= "map".$module->id.".setTilt(".$maptilt.");";
+}
+if ($mapheading) {
+	$script .= "map".$module->id.".setHeading(".$mapheading.");";
+}
+
 
 if ($mapweatherlayer) {
 	$script .= "var weatherLayer".$module->id." = new google.maps.weather.WeatherLayer({
@@ -186,6 +189,5 @@ $script .= "google.maps.event.addDomListener(window, 'load', initialize".$module
 $document->addStyleDeclaration($mapcss);
 $document->addScriptDeclaration($script);
 
-//require JModuleHelper::getLayoutPath('mod_jbmaps2', $params->get('layout', 'default'));
+require JModuleHelper::getLayoutPath('mod_jbmaps2', $params->get('layout', 'default'));
 ?>
-<div id="jbmaps2-<?php echo $module->id; ?>"<?php if($moduleclass_sfx) {echo ' class="'.$moduleclass_sfx.'"';}; ?>></div>
