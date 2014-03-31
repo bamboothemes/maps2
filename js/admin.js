@@ -256,7 +256,7 @@ function updateFieldsFromMap(){
       markerArray.push(markerInfo);
     //create the fields with the information
     /*jshint multistr: true */
-    markerHtml += '<fieldset class="form-inline" id="markerfieldset' + markerid +'" data-type="markerfieldset">\
+    markerHtml += '<fieldset class="form" id="markerfieldset' + markerid +'" data-type="markerfieldset">\
     <legend>Marker ' + markerid  + '</legend>\
     <input data-type="markerid" type="hidden" value="' + markerid +'">\
     <label>Title</label>\
@@ -264,13 +264,14 @@ function updateFieldsFromMap(){
     <label>Text</label>\
     <textarea data-type="markerwindowcontent" rows="3">' + windowcontent + '</textarea>\
     <label>Icon</label>\
-    <input class="input-mini" data-type="markericon" type="text" value="' + icon +'">\
+    <input class="input" data-type="markericon" type="text" value="' + icon +'">\
     <label>Icon Shadow</label>\
-    <input class="input-mini" data-type="markericonshadow" type="text" value="' + shadow +'">\
-    <label>Lat:</label>\
-    <input class="input-mini" data-type="markerlat" type="text" value="' + lat +'">\
-    <label>Lng:</label>\
-    <input class="input-mini" data-type="markerlng" type="text" value="' + lng +'">\
+    <input class="input" data-type="markericonshadow" type="text" value="' + shadow +'">\
+    <label class="hidden">Lat:</label>\
+    <input class="input-mini hidden" data-type="markerlat" type="text" value="' + lat +'">\
+    <label class="hidden">Lng:</label>\
+    <input class="input-mini hidden" data-type="markerlng" type="text" value="' + lng +'">\
+    <button type="button" class="btn btn-primary" data-toggle="button">Open</button>\
     <button data-marker-id="' + markerid  + '" class="btn btn-mini btn-danger removemarker" type="button"><i class="icon-remove"></i>Delete Marker</button>\
     </fieldset>';
   }
@@ -345,8 +346,12 @@ function updateMapFromFields(){
   google.maps.event.addListener(marker, 'click', (function(marker, i) {
     return function() {
       if (this.windowcontent !== '') {
-        infowindow.setContent(this.windowcontent);
-        infowindow.open(map, marker);
+        if (!infowindow.getMap()) {
+          infowindow.setContent(this.windowcontent);
+          infowindow.open(map, marker);
+        }else{
+          infowindow.close(map, marker);
+        };
       };
     }
   })(marker, i));
@@ -394,11 +399,11 @@ jQuery('#markerhelpers').on('click', '.btn.fitmarkers', function(){
     lng = markers[i].getPosition().lng();
     LatLngList.push(new google.maps.LatLng (lat,lng));
   };
-var bounds = new google.maps.LatLngBounds ();
-for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
-  bounds.extend (LatLngList[i]);
-}
-map.fitBounds (bounds);
+  var bounds = new google.maps.LatLngBounds ();
+  for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
+    bounds.extend (LatLngList[i]);
+  }
+  map.fitBounds (bounds);
 });
 //******************end marker helper buttons*******************//
 
