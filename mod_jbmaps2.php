@@ -16,26 +16,42 @@ $document = JFactory::getDocument();
 $languages = JLanguageHelper::getLanguages('lang_code');
 $languageCode = $languages[ $lang->getTag() ]->sef;
 
-//add the main script
-$document->addScript('http://maps.google.com/maps/api/js?sensor=false&language='.$languageCode);
-
 //module params
 $moduleclass_sfx	= $params->get('moduleclass_sfx');
 $mapwidth			= $params->get('mapwidth', '100%');
 $mapheight			= $params->get('mapheight', '400px');
 $mapcontrols		= $params->get('mapcontrols', '');
 $mapzoom			= $params->get('mapzoom', '5');
-$maptilt			= $params->get('maptilt', '0');
-$mapheading			= $params->get('mapheading', '0');
+$maptilt			= $params->get('maptilt', 0);
+$mapheading			= $params->get('mapheading', 0);
 $mapcentlat			= $params->get('mapcentlat', '54.525961');
 $mapcentlon			= $params->get('mapcentlon', '15.255119');
 $maptype			= $params->get('maptype', 'ROADMAP');
-$mapdraggable		= $params->get('mapdraggable') == 1 ? 1 : 0;
+$mapdraggable		= $params->get('mapdraggable') == 1 ? 'true' : 'false';
 $markerinfobehaviour= $params->get('markerinfobehaviour', 'click');
 $markerdata			= $params->get('markerdata', '');
 $mapcustomstyle		= $params->get('mapcustomstyle', '');
 $mapcustommapname	= $params->get('mapcustommapname', '');
-//$					= $params->get('', '');
+$mapweatherlayer	= $params->get('mapweatherlayer', 0);
+$mapweatherunits	= $params->get('mapweatherunits', 'google.maps.weather.TemperatureUnit.CELSIUS');
+$mapwindunits		= $params->get('mapwindunits', 'google.maps.weather.WindSpeedUnit.METERS_PER_SECOND');
+$mapweatherlabels	= $params->get('mapweatherlabels', 0);
+$mapcloudlayer		= $params->get('mapcloudlayer', 0);
+$maptrafficlayer	= $params->get('maptrafficlayer', 0);
+$maptransitlayer	= $params->get('maptransitlayer', 0);
+$mapbicyclinglayer	= $params->get('mapbicyclinglayer', 0);
+$mapkmllayer		= $params->get('mapkmllayer', 0);
+//$			= $params->get('', '');
+//$			= $params->get('', '');
+//$			= $params->get('', '');
+//$			= $params->get('', '');
+//$			= $params->get('', '');
+//$			= $params->get('', '');
+
+//add the main script
+$mapsScript = 'http://maps.google.com/maps/api/js?sensor=false&amp;libraries=weather&amp;language='.$languageCode;
+$document->addScript($mapsScript);
+
 
 //check which controls should be on and off
 $allmapcontrols = array('zoomControl','panControl','mapTypeControl','scaleControl','streetViewControl','rotateControl','overviewMapControl');
@@ -125,7 +141,45 @@ if ($mapcustomstyle) {
 $script .= "
 map".$module->id.".setTilt(".$maptilt.");
 map".$module->id.".setHeading(".$mapheading.");
-}";
+";
+
+if ($mapweatherlayer) {
+	$script .= "var weatherLayer".$module->id." = new google.maps.weather.WeatherLayer({
+			temperatureUnits: ".$mapweatherunits.",
+			windSpeedUnits: ".$mapwindunits.",
+			labelColor: ".$mapweatherlabels."
+	});
+		weatherLayer".$module->id.".setMap(map".$module->id.");
+	";
+}
+if ($mapcloudlayer) {
+	$script .= "var cloudLayer".$module->id." = new google.maps.weather.CloudLayer();
+		cloudLayer".$module->id.".setMap(map".$module->id.");
+	";
+}
+if ($maptrafficlayer) {
+	$script .= "var trafficLayer".$module->id." = new google.maps.TrafficLayer();
+		trafficLayer".$module->id.".setMap(map".$module->id.");
+	";
+}
+if ($maptransitlayer) {
+	$script .= "var transitLayer".$module->id." = new google.maps.TransitLayer();
+		transitLayer".$module->id.".setMap(map".$module->id.");
+	";
+}
+if ($mapbicyclinglayer) {
+	$script .= "var bikeLayer".$module->id." = new google.maps.BicyclingLayer();
+		bikeLayer".$module->id.".setMap(map".$module->id.");
+	";
+}
+if ($mapkmllayer) {
+	$script .= "var kmlLayer".$module->id." = new google.maps.KmlLayer({
+    url: '".$mapkmllayer."'
+  });
+  kmlLayer".$module->id.".setMap(map".$module->id.");
+  ";
+}
+$script .= "}";
 
 $script .= "google.maps.event.addDomListener(window, 'load', initialize".$module->id.");";
 

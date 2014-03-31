@@ -184,6 +184,115 @@ jQuery('#jform_params_mapdraggable').click(function(){
 map.set('draggable',jQuery('#jform_params_mapdraggable input[type=radio]:checked').val());
 //******************end drag*******************//
 
+//******************weather layer***********************//
+var weatherLayer = new google.maps.weather.WeatherLayer();
+function updateMapWeather(){
+  weatherLayer.setMap(parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val()) ? map : null);
+ // updateTemperature(jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val());
+ // updateWind(jQuery('#jform_params_mapwindunits option:selected').val());
+ // updateLabelColor(jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val());
+}
+function updateTemperature(units){
+  console.log(units);
+  weatherLayer.setOptions({'temperatureUnits': units});
+}
+function updateWind(units){
+  console.log(units);
+  weatherLayer.setOptions({'windSpeedUnits': units});
+}
+function updateLabelColor(color) {
+  weatherLayer.setOptions({'labelColor': color});
+}
+
+jQuery('#jform_params_mapweatherlayer').click(function(){
+  if (parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val())) {
+    weatherLayer.setMap(map);
+    jQuery('#jform_params_mapweatherunits').closest('.control-group').show(500);
+    jQuery('#jform_params_mapwindunits').closest('.control-group').show(500);
+    jQuery('#jform_params_mapweatherlabels').closest('.control-group').show(500);
+  }else{
+    weatherLayer.setMap(null);
+    jQuery('#jform_params_mapweatherunits').closest('.control-group').hide(500);
+    jQuery('#jform_params_mapwindunits').closest('.control-group').hide(500);
+    jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide(500);
+  };
+});
+//toggle units
+jQuery('#jform_params_mapweatherunits').click(function(){
+  updateTemperature(jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val());
+});
+jQuery('#jform_params_mapwindunits').change(function(){
+  updateWind(jQuery('#jform_params_mapwindunits option:selected').val());
+});
+jQuery('#jform_params_mapweatherlabels').change(function(){
+  color = jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val();
+  console.log(color);
+  updateLabelColor(color);
+});
+//set on pageload
+updateMapWeather();
+weatherLayer.setOptions({'labelColor': jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val()});
+console.log(jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val());
+//map.set('weatherLayer',jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val());
+//******************end weather layer*******************//
+
+//******************cloud layer ***********************//
+var cloudLayer = new google.maps.weather.CloudLayer();
+cloudLayer.setMap(parseInt(jQuery('#jform_params_mapcloudlayer input[type=radio]:checked').val()) ? map : null);
+jQuery('#jform_params_mapcloudlayer').click(function(){
+  cloudLayer.setMap(parseInt(jQuery('#jform_params_mapcloudlayer input[type=radio]:checked').val()) ? map : null);
+});
+//******************end cloud layer*******************//
+
+//******************traffic layer***********************//
+var trafficLayer = new google.maps.TrafficLayer();
+trafficLayer.setMap(parseInt(jQuery('#jform_params_maptrafficlayer input[type=radio]:checked').val()) ? map : null);
+jQuery('#jform_params_maptrafficlayer').click(function(){
+  trafficLayer.setMap(parseInt(jQuery('#jform_params_maptrafficlayer input[type=radio]:checked').val()) ? map : null);
+});
+//******************end traffic layer*******************//
+
+//******************transit layer***********************//
+var transitLayer = new google.maps.TransitLayer();
+transitLayer.setMap(parseInt(jQuery('#jform_params_maptransitlayer input[type=radio]:checked').val()) ? map : null);
+jQuery('#jform_params_maptransitlayer').click(function(){
+  transitLayer.setMap(parseInt(jQuery('#jform_params_maptransitlayer input[type=radio]:checked').val()) ? map : null);
+});
+//******************end transit layer*******************//
+
+//******************bicycling layer***********************//
+var bikeLayer = new google.maps.BicyclingLayer();
+bikeLayer.setMap(parseInt(jQuery('#jform_params_mapbicyclinglayer input[type=radio]:checked').val()) ? map : null);
+jQuery('#jform_params_mapbicyclinglayer').click(function(){
+  bikeLayer.setMap(parseInt(jQuery('#jform_params_mapbicyclinglayer input[type=radio]:checked').val()) ? map : null);
+});
+//******************end bicycling layer*******************//
+
+//******************kml layer*******************//
+function updateKml(){
+  kmlfile = jQuery('#jform_params_mapkmllayer').val();
+  var kmlLayer = new google.maps.KmlLayer();
+  kmlLayer.setMap(null); //this isn't removing the layer
+  //console.log('kml file: ' + kmlfile);
+  if (kmlfile !== '') {
+    //console.log('update url');
+    kmlLayer.setOptions({'url': kmlfile});
+    kmlLayer.setMap(map);
+  };
+}
+jQuery('#jform_params_mapkmllayer').focusout(function(){
+  updateKml();
+});
+//check for kml on load
+updateKml();
+//******************end kml layer*******************//
+
+//****************** *******************//
+//******************end *******************//
+
+//****************** *******************//
+//******************end *******************//
+
 //******************markers***********************//
 //Global marker array
 var markers = [];
@@ -346,11 +455,13 @@ function updateMapFromFields(){
   google.maps.event.addListener(marker, 'click', (function(marker, i) {
     return function() {
       if (this.windowcontent !== '') {
-        if (!infowindow.getMap()) {
+        if (infowindow.getMap(this)) {
+          infowindow.close(map, marker);
+          console.log('closing');
+        }else{
           infowindow.setContent(this.windowcontent);
           infowindow.open(map, marker);
-        }else{
-          infowindow.close(map, marker);
+          console.log('opening');
         };
       };
     }

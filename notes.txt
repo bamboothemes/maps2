@@ -32,3 +32,4 @@ http://blog.shamess.info/2009/09/29/zoom-to-fit-all-markers-on-google-maps-api-v
 
 weather and cloud layers
 https://developers.google.com/maps/documentation/javascript/examples/layer-weather
+http://gmaps-samples-v3.googlecode.com/svn/trunk/weather/weather_layer.html
