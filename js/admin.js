@@ -88,7 +88,7 @@ function updateMapType(){
     if (IsJsonString(mapStyle)) {
       var mapStyle = JSON.parse(mapStyle);
       map.setOptions({styles: mapStyle});
-      jQuery('#mapstylewarning').hide().html('<div class="alert alert-success">The style is valid JSON</div>').fadeIn('slow');
+      jQuery('#mapstylewarning').hide().html('').fadeIn('slow');
     } else {
       map.setOptions({styles: null});
       jQuery('#mapstylewarning').hide().html('<div class="alert alert-error">The style is not valid JSON</div>').fadeIn('slow');
@@ -128,10 +128,10 @@ jQuery('#jform_params_mappresets').change(function() {
       context: document.body,
       contentType: "application/json",
       dataType: "text",
-      success: function(data){
-        if (IsJsonString(data)) {
-          jQuery('#jform_params_mapcustomstyle').val(data);
-          map.setOptions({styles: JSON.parse(data)});
+      success: function(style){
+        if (IsJsonString(style)) {
+          jQuery('#jform_params_mapcustomstyle').val(style);
+          map.setOptions({styles: JSON.parse(style)});
         }else{
           jQuery('#mapstylewarning').hide().html('<div class="alert alert-error">The file contents are not valid JSON</div>').fadeIn('slow');
           map.setOptions({styles: null});
@@ -406,14 +406,13 @@ function updateFieldsFromMap(){
     <label>Text</label>\
     <textarea data-type="markerwindowcontent" rows="3">' + windowcontent + '</textarea>\
     <label>Icon</label>\
-    <input class="input" data-type="markericon" type="text" value="' + icon +'">\
+    <input class="input" data-type="markericon" type="text" value="' + icon +'"><img class="markericon" src="' + icon +'" />\
     <label>Icon Shadow</label>\
-    <input class="input" data-type="markericonshadow" type="text" value="' + shadow +'">\
+    <input class="input" data-type="markericonshadow" type="text" value="' + shadow +'"><img class="markericonshadow" src="' + shadow +'" />\
     <label class="hidden">Lat:</label>\
     <input class="input-mini hidden" data-type="markerlat" type="text" value="' + lat +'">\
     <label class="hidden">Lng:</label>\
     <input class="input-mini hidden" data-type="markerlng" type="text" value="' + lng +'">\
-    <button type="button" class="btn btn-primary" data-toggle="button">Open</button>\
     <button data-marker-id="' + markerid  + '" class="btn btn-mini btn-danger removemarker" type="button"><i class="icon-remove"></i>Delete Marker</button>\
     </fieldset>';
   }
@@ -524,6 +523,10 @@ if(jQuery('input#jform_params_markerdata').val() !== ''){
   updateMapFromFields();
   updateFieldsFromMap();
 }
+//change icon when clicking the image
+jQuery('#markers').on('click', 'img.markericon', function(){
+jQuery(this).prev('input').val('changed');
+  });
 //******************end markers*******************//
 
 //******************marker helper buttons***********************//

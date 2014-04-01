@@ -110,6 +110,7 @@
 				<field name="mapstylewarning" type="mapstylewarning" label="" />
 				<field name="mappresets" type="filelist" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLEPRESET_LABEL" filter="json"  description="" directory="modules/mod_jbmaps2/presets" hide_default="true" exclude="" stripext="true" />
 				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
+				<field name="stylepreview" type="stylepreview" label=""/>
 			</fieldset>
 			<fieldset name="advanced">
 				<field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
