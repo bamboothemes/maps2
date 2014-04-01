@@ -67,7 +67,7 @@
 				<field name="markerdata" type="hidden" label="" filter="safehtml" />
 				<field name="markers" type="markers" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC"/>
 			</fieldset>
-			<fieldset name="layersandstyles">
+			<fieldset name="layers">
 				<field name="mapweatherlayer" type="radio" label="MOD_JBMAPS2_MAPWEATHERLAYER_LABEL" description="MOD_JBMAPS2_MAPWEATHERLAYER_DESC" default="0" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
@@ -103,8 +103,11 @@
 					<option value="0">JNO</option>
 				</field>
 				<field name="mapkmllayer" type="text" default="" label="MOD_JBMAPS2_MAPKMLLAYER_LABEL" description="MOD_JBMAPS2_MAPKMLLAYER_DESC" />
+			</fieldset>
+			<fieldset name="styles">
 				<field name="mapcustomstyletext" type="note" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_DESC" filter="raw" />
 				<field name="mapstylewarning" type="mapstylewarning" label="" />
+				<field name="map-presets" type="filelist" default="" label="Apply a preset" filter="xml"  description="" directory="modules/mod_jbmaps2/presets" exclude="" stripext="" />
 				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
 			</fieldset>
 			<fieldset name="advanced">
