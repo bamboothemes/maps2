@@ -111,13 +111,37 @@ updateMapType();
 jQuery('#jform_params_maptype').change(updateMapType);
 jQuery('#jform_params_mapcustomstyle').bind('input propertychange', 'input,textarea', function() {
   updateMapType();
-  //console.log('maptype updated');
 });
 //update input on map change
 google.maps.event.addListener( map, 'maptypeid_changed', function() { 
   jQuery('#jform_params_maptype').val(map.getMapTypeId().toUpperCase());
   jQuery('#jform_params_maptype_chzn span').text(map.getMapTypeId());
 } );
+//update style from preset
+jQuery('#jform_params_mappresets').change(function() {
+  if (jQuery(this).val() == -1 || jQuery(this).val() == '') {
+    jQuery('#jform_params_mapcustomstyle').val('');
+    map.setOptions({styles: null});
+  }else{
+    jQuery.ajax({
+      url: window.siteRoot + 'modules/mod_jbmaps2/presets/' + jQuery('#jform_params_mappresets').val() + '.json',
+      context: document.body,
+      contentType: "application/json",
+      dataType: "text",
+      success: function(data){
+        if (IsJsonString(data)) {
+          jQuery('#jform_params_mapcustomstyle').val(data);
+          map.setOptions({styles: JSON.parse(data)});
+        }else{
+          jQuery('#mapstylewarning').hide().html('<div class="alert alert-error">The file contents are not valid JSON</div>').fadeIn('slow');
+          map.setOptions({styles: null});
+        };
+      }
+    });
+  };
+  
+});
+//alert(window.siteRoot);
 //******************end maptype*******************//
 
 //******************controls***********************//
@@ -242,7 +266,7 @@ jQuery('#jform_params_mapweatherlabels').change(function(){
 //set on pageload
 updateMapWeather();
 weatherLayer.setOptions({'labelColor': jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val()});
-console.log(jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val());
+//console.log(jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val());
 //map.set('weatherLayer',jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val());
 //******************end weather layer*******************//
 
@@ -555,7 +579,12 @@ function IsJsonString(str) {
   }
   return true;
 }
-
+// get site url
+function getURL() { 
+  var arr = window.location.href.split("/"); 
+  //delete arr[arr.length - 1]; 
+  return arr[2]; 
+}
 //******************end general functions*******************//
 
 google.maps.event.addDomListener(window, 'load', initialize);
