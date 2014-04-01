@@ -141,7 +141,6 @@ jQuery('#jform_params_mappresets').change(function() {
   };
   
 });
-//alert(window.siteRoot);
 //******************end maptype*******************//
 
 //******************controls***********************//
