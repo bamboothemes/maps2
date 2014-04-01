@@ -56,49 +56,51 @@ if ($markerdata && $markerdata !== '[]') {
 	var markers".$module->id." = ".$markerdata.";
 	for( i = 0; i < markers".$module->id.".length; i++ ) {
 		var position = new google.maps.LatLng(markers".$module->id."[i][1], markers".$module->id."[i][2]);
-		marker = new google.maps.Marker({
+		marker".$module->id." = new google.maps.Marker({
 			position: position,
+			markerid: markers".$module->id."[i][0],
 			title: markers".$module->id."[i][3],
 			icon: markers".$module->id."[i][4],
 			shadow: markers".$module->id."[i][5],
 			windowcontent: markers".$module->id."[i][6],
 			map: map".$module->id."
-		});";
+		});
+console.debug(marker".$module->id.");";
 if ($markerinfobehaviour === 'mouseover') {
-	$script .= "google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+	$script .= "google.maps.event.addListener(marker".$module->id.", 'mouseover', (function(marker".$module->id.", i) {
 		return function() {
 			if (this.windowcontent !== '') {
         if (infowindow".$module->id.".getMap(this)) {
-          infowindow".$module->id.".close(map".$module->id.", marker);
+          infowindow".$module->id.".close(map".$module->id.", marker".$module->id.");
         }else{
           infowindow".$module->id.".setContent(this.windowcontent);
-          infowindow".$module->id.".open(map".$module->id.", marker);
+          infowindow".$module->id.".open(map".$module->id.", marker".$module->id.");
         };
       };
 			if (this.windowcontent !== '') {
 				infowindow".$module->id.".setContent(this.windowcontent);
-				infowindow".$module->id.".open(map".$module->id.", marker);
+				infowindow".$module->id.".open(map".$module->id.", marker".$module->id.");
 			};
 		}
-	})(marker, i));
+	})(marker".$module->id.", i));
 
-google.maps.event.addListener(marker, 'mouseout', function() { 
+google.maps.event.addListener(marker".$module->id.", 'mouseout', function() { 
 	infowindow".$module->id.".close();
 });
 ";
 } else {
-	$script .= "google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	$script .= "google.maps.event.addListener(marker".$module->id.", 'click', (function(marker".$module->id.", i) {
 		return function() {
 			if (this.windowcontent !== '') {
 				if (infowindow".$module->id.".getMap(this)) {
-					infowindow".$module->id.".close(map".$module->id.", marker);
+					infowindow".$module->id.".close(map".$module->id.", marker".$module->id.");
 				}else{
 					infowindow".$module->id.".setContent(this.windowcontent);
-					infowindow".$module->id.".open(map".$module->id.", marker);
+					infowindow".$module->id.".open(map".$module->id.", marker".$module->id.");
 				};
 			};
 		}
-	})(marker, i));
+	})(marker".$module->id.", i));
 ";
 }
 $script .= "}";

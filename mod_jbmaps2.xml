@@ -15,6 +15,7 @@
 		<folder>fields</folder>
 		<folder>js</folder>
 		<folder>language</folder>
+		<folder>presets</folder>
 		<folder>tmpl</folder>
 		<filename>index.html</filename>
 		<filename>LICENCE.txt</filename>
