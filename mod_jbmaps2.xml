@@ -107,7 +107,7 @@
 			<fieldset name="styles">
 				<field name="mapcustomstyletext" type="note" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_DESC" filter="raw" />
 				<field name="mapstylewarning" type="mapstylewarning" label="" />
-				<field name="map-presets" type="filelist" default="" label="Apply a preset" filter="xml"  description="" directory="modules/mod_jbmaps2/presets" exclude="" stripext="" />
+				<field name="map-presets" type="filelist" default="" label="Apply a preset" filter="json"  description="" directory="modules/mod_jbmaps2/presets" exclude="" stripext="" />
 				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
 			</fieldset>
 			<fieldset name="advanced">
