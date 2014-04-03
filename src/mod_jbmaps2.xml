@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension client="site" method="upgrade" type="module" version="3.2">
+	<name>JB Maps2</name>
+	<author>Joomla Bamboo</author>
+	<creationDate>February 27, 2014</creationDate>
+	<copyright>Copyright (c) 2014 Joomla Bamboo. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later</license>
+	<authorEmail>design@joomlabamboo.com</authorEmail>
+	<authorUrl>www.joomlabamboo.com</authorUrl>
+	<version>1.0.0</version>
+	<description>MOD_JBMAPS2_DESC</description>
+	<files>
+		<filename module="mod_jbmaps2">mod_jbmaps2.php</filename>
+		<folder>docs</folder>
+		<folder>fields</folder>
+		<folder>js</folder>
+		<folder>language</folder>
+		<folder>presets</folder>
+		<folder>tmpl</folder>
+		<filename>index.html</filename>
+		<filename>LICENCE.txt</filename>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB.mod_jbmaps2.ini</language>
+		<language tag="en-GB">en-GB.mod_jbmaps2.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params" addfieldpath="/modules/mod_jbmaps2/fields">
+			<fieldset name="mapsettings">
+				<field name="markerhelpers" type="markerhelpers" label="" />
+				<field name="previewmap" type="previewmap" label="MOD_JBMAPS2_PREVIEWMAP_LABEL" description="MOD_JBMAPS2_PREVIEWMAP_DESC" />
+				<field name="mapsearch" type="text" default="" label="MOD_JBMAPS2_MAPSEARCH_LABEL" description="MOD_JBMAPS2_MAPSEARCH_DESC" />
+				<field name="mapwidth" type="text" default="600px" label="MOD_JBMAPS2_MAPWIDTH_LABEL" description="MOD_JBMAPS2_MAPWIDTH_DESC" class="input-mini jbmaps2-mapwidth" />
+				<field name="mapheight" type="text" default="300px" label="MOD_JBMAPS2_MAPHEIGHT_LABEL" description="MOD_JBMAPS2_MAPHEIGHT_DESC" class="input-mini jbmaps2-mapheight" />
+				<field name="mapzoom" type="integer" default="5" label="MOD_JBMAPS2_MAPZOOM_LABEL" description="MOD_JBMAPS2_MAPZOOM_DESC" first="0" last="20" step="1" />
+				<field name="maptilt" type="list" default="0" label="MOD_JBMAPS2_MAPTILT_LABEL" description="MOD_JBMAPS2_MAPTILT_DESC" class="jbmaps2-maptilt" >
+					<option value="0">0</option>
+					<option value="45">45</option>
+				</field>
+				<field name="mapheading" type="integer" default="0" label="MOD_JBMAPS2_MAPHEADING_LABEL" description="MOD_JBMAPS2_MAPHEADING_DESC" first="0" last="270" step="90" class="input-mini jbmaps2-mapheading" />
+				<field name="mapcentlat" type="text" default="54.525961" label="MOD_JBMAPS2_MAPCENTLAT_LABEL" description="MOD_JBMAPS2_MAPCENTLAT_DESC" class="jbmaps2-mapcantlat" filter="float" />
+				<field name="mapcentlon" type="text" default="15.255119" label="MOD_JBMAPS2_MAPCENTLON_LABEL" description="MOD_JBMAPS2_MAPCENTLON_DESC" class="jbmaps2-mapcantlon" filter="float" />
+				<field name="maptype" type="list" default="ROADMAP" label="MOD_JBMAPS2_MAPTYPE_LABEL" description="MOD_JBMAPS2_MAPTYPE_DESC" class="jbmaps2-maptype">
+					<option value="ROADMAP">roadmap</option>
+					<option value="SATELLITE">satellite</option>
+					<option value="HYBRID">hybrid</option>
+					<option value="TERRAIN">terrain</option>
+				</field>
+				<field name="mapcontrols" type="checkboxes" label="MOD_JBMAPS2_MAPCONTROLS_LABEL" description="MOD_JBMAPS2_MAPCONTROLS_DESC" class="btn-group jbmaps2-mapcontrols" >
+					<option value="zoomControl">zoom</option>
+					<option value="panControl">pan</option>
+					<option value="mapTypeControl">maptype</option>
+					<option value="scaleControl">scale</option>
+					<option value="streetViewControl">streetview</option>
+					<option value="rotateControl">rotate</option>
+					<option value="overviewMapControl">overview</option>
+				</field>
+				<field name="mapdraggable" type="radio" label="MOD_JBMAPS2_MAPDRAGGABLE_LABEL" description="MOD_JBMAPS2_MAPDRAGGABLE_DESC" default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+			</fieldset>
+			<fieldset name="markers">
+				<field name="markerinfobehaviour" type="list" label="MOD_JBMAPS2_MARKERINFOBEHAVIOUR_LABEL" description="MOD_JBMAPS2_MARKERINFOBEHAVIOUR_DESC" default="click" class="" >
+					<option value="click">click</option>
+					<option value="mouseover">mouseover</option>
+				</field>
+				<field name="markerdata" type="hidden" label="" filter="safehtml" />
+				<field name="markers" type="markers" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC"/>
+			</fieldset>
+			<fieldset name="layers">
+				<field name="mapweatherlayer" type="radio" label="MOD_JBMAPS2_MAPWEATHERLAYER_LABEL" description="MOD_JBMAPS2_MAPWEATHERLAYER_DESC" default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="mapweatherunits" type="radio" label="MOD_JBMAPS2_MAPWEATHERUNITS_LABEL" description="MOD_JBMAPS2_MAPWEATHERUNITS_DESC" default="google.maps.weather.TemperatureUnit.CELSIUS" class="btn-group">
+					<option value="google.maps.weather.TemperatureUnit.CELSIUS">°C</option>
+					<option value="google.maps.weather.TemperatureUnit.FAHRENHEIT">°F</option>
+				</field>
+				<field name="mapwindunits" type="list" label="MOD_JBMAPS2_MAPWINDUNITS_LABEL" description="MOD_JBMAPS2_MAPWINDUNITS_DESC" default="google.maps.weather.WindSpeedUnit.METERS_PER_SECOND" class="btn-group">
+					<option value="google.maps.weather.WindSpeedUnit.KILOMETERS_PER_HOUR">MOD_JBMAPS2_KMH</option>
+					<option value="google.maps.weather.WindSpeedUnit.METERS_PER_SECOND">MOD_JBMAPS2_MS</option>
+					<option value="google.maps.weather.WindSpeedUnit.MILES_PER_HOUR">MOD_JBMAPS2_MH</option>
+				</field>
+				<field name="mapweatherlabels" type="list" label="MOD_JBMAPS2_MAPWEATHERLABELS_LABEL" description="MOD_JBMAPS2_MAPWEATHERLABELS_DESC" default="0" class="btn-group">
+					<option value="0">Auto</option>
+					<option value="google.maps.weather.LabelColor.BLACK">Black</option>
+					<option value="google.maps.weather.LabelColor.WHITE">White</option>
+				</field>
+				<field name="mapcloudlayer" type="radio" label="MOD_JBMAPS2_MAPCLOUDLAYER_LABEL" description="MOD_JBMAPS2_MAPCLOUDLAYER_DESC" default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="maptrafficlayer" type="radio" label="MOD_JBMAPS2_MAPTRAFFICLAYER_LABEL" description="MOD_JBMAPS2_MAPTRAFFICLAYER_DESC" default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="maptransitlayer" type="radio" label="MOD_JBMAPS2_MAPTRANSITLAYER_LABEL" description="MOD_JBMAPS2_MAPTRANSITLAYER_DESC" default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="mapbicyclinglayer" type="radio" label="MOD_JBMAPS2_MAPMAPBICYCLINGLAYER_LABEL" description="MOD_JBMAPS2_MAPMAPBICYCLINGLAYER_DESC" default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="mapkmllayer" type="text" default="" label="MOD_JBMAPS2_MAPKMLLAYER_LABEL" description="MOD_JBMAPS2_MAPKMLLAYER_DESC" />
+			</fieldset>
+			<fieldset name="styles">
+				<field name="mapcustomstyletext" type="note" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLETEXT_DESC" filter="raw" />
+				<field name="mapstylewarning" type="mapstylewarning" label="" />
+				<field name="mappresets" type="filelist" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLEPRESET_LABEL" filter="json"  description="" directory="modules/mod_jbmaps2/presets" hide_default="true" exclude="" stripext="true" />
+				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
+				<field name="stylepreview" type="stylepreview" label=""/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
