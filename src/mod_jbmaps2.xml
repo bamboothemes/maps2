@@ -26,7 +26,7 @@
 	</languages>
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_jbmaps2/fields">
-			<fieldset name="mapsettings">
+			<fieldset name="basic">
 				<field name="markerhelpers" type="markerhelpers" label="" />
 				<field name="previewmap" type="previewmap" label="MOD_JBMAPS2_PREVIEWMAP_LABEL" description="MOD_JBMAPS2_PREVIEWMAP_DESC" />
 				<field name="mapsearch" type="text" default="" label="MOD_JBMAPS2_MAPSEARCH_LABEL" description="MOD_JBMAPS2_MAPSEARCH_DESC" />

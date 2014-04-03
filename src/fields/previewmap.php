@@ -13,6 +13,6 @@ class JFormFieldPreviewMap extends JFormField {
 		$document->addScript(JURI::root(true). '/modules/mod_jbmaps2/js/admin.js');
 		$document->addScriptDeclaration("var siteRoot = '". JURI::root() ."';"); //base path for style files
 
-return '<div id="map" style="height:300px;width:500px"></div><div id="jbmaps2-notices"></div>';
+return '<div id="map" style="height:300px;width:500px;max-width:100%"></div><div id="jbmaps2-notices"></div>';
 }
 }
