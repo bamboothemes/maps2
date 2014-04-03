@@ -208,7 +208,11 @@ map.set('draggable',jQuery('#jform_params_mapdraggable input[type=radio]:checked
 //******************end drag*******************//
 
 //******************weather layer***********************//
-var weatherLayer = new google.maps.weather.WeatherLayer();
+var weatherLayer = new google.maps.weather.WeatherLayer({
+  temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS,
+  windSpeedUnits: google.maps.weather.WindSpeedUnit.METERS_PER_SECOND,
+  labelColor: google.maps.weather.LabelColor.BLACK
+});
 function updateMapWeather(){
   weatherLayer.setMap(parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val()) ? map : null);
  // updateTemperature(jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val());
@@ -252,15 +256,29 @@ if (parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').v
 };
 //toggle units
 jQuery('#jform_params_mapweatherunits').click(function(){
-  updateTemperature(jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val());
+  if (jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val() === 'google.maps.weather.TemperatureUnit.CELSIUS') {
+    updateTemperature(google.maps.weather.TemperatureUnit.CELSIUS);
+  } else if (jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val() === 'google.maps.weather.TemperatureUnit.FAHRENHEIT') { 
+    updateTemperature(google.maps.weather.TemperatureUnit.FAHRENHEIT);
+  };
 });
 jQuery('#jform_params_mapwindunits').change(function(){
-  updateWind(jQuery('#jform_params_mapwindunits option:selected').val());
+  if (jQuery('#jform_params_mapwindunits option:selected').val() === 'google.maps.weather.WindSpeedUnit.KILOMETERS_PER_HOUR') {
+    updateWind(google.maps.weather.WindSpeedUnit.KILOMETERS_PER_HOUR);
+  } else if (jQuery('#jform_params_mapwindunits option:selected').val() === 'google.maps.weather.WindSpeedUnit.METERS_PER_SECOND') {
+    updateWind(google.maps.weather.WindSpeedUnit.METERS_PER_SECOND);
+  } else if (jQuery('#jform_params_mapwindunits option:selected').val() === 'google.maps.weather.WindSpeedUnit.MILES_PER_HOUR') {
+    updateWind(google.maps.weather.WindSpeedUnit.MILES_PER_HOUR);
+  };
 });
 jQuery('#jform_params_mapweatherlabels').change(function(){
-  color = jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val();
-  console.log(color);
-  updateLabelColor(color);
+  if (jQuery('#jform_params_mapweatherlabels option:selected').val() === '0') {
+    updateLabelColor(null);
+  } else if (jQuery('#jform_params_mapweatherlabels option:selected').val() === 'google.maps.weather.LabelColor.BLACK') {
+    updateLabelColor(google.maps.weather.LabelColor.BLACK);
+  } else if (jQuery('#jform_params_mapweatherlabels option:selected').val() === 'google.maps.weather.LabelColor.WHITE') {
+    updateLabelColor(google.maps.weather.LabelColor.WHITE);
+  };
 });
 //set on pageload
 updateMapWeather();
@@ -525,8 +543,8 @@ if(jQuery('input#jform_params_markerdata').val() !== ''){
 }
 //change icon when clicking the image
 jQuery('#markers').on('click', 'img.markericon', function(){
-jQuery(this).prev('input').val('changed');
-  });
+  jQuery(this).prev('input').val('changed');
+});
 //******************end markers*******************//
 
 //******************marker helper buttons***********************//
