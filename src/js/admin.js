@@ -426,7 +426,7 @@ function updateFieldsFromMap(){
     <label>Icon</label>\
     <input class="input" data-type="markericon" type="text" value="' + icon +'"><img class="markericon" data-toggle="popover" data-placement="top" src="' + icon +'" />\
     <label>Icon Shadow</label>\
-    <input class="input" data-type="markericonshadow" type="text" value="' + shadow +'"><img class="markericonshadow" src="' + shadow +'" />\
+    <input class="input" data-type="markericonshadow" type="text" value="' + shadow +'"><img class="markericonshadow" data-toggle="popover" data-placement="top" src="' + shadow +'" />\
     <label class="hidden">Lat:</label>\
     <input class="input-mini hidden" data-type="markerlat" type="text" value="' + lat +'">\
     <label class="hidden">Lng:</label>\
@@ -546,6 +546,7 @@ if(jQuery('input#jform_params_markerdata').val() !== ''){
 //make image a popover
 var popOverIconSettings = {
     html: true,
+    /*jshint multistr: true */
     content: '<div class="selectmarker">\
       <p><small>Standard 20x34</small></p>\
       <img class="updatemarker" src="http://maps.google.com/mapfiles/marker.png">\
@@ -593,8 +594,38 @@ jQuery('#markers').on('click', 'img.updatemarker', function(){
   //trigger a marker click to update fields
  //google.maps.event.trigger(marker, 'dragend', {});
 });
-
 //******************end marker icon html*******************//
+
+//******************marker iconshadow html***********************//
+//make image a popover
+var popOverIconshadowSettings = {
+    html: true,
+    /*jshint multistr: true */
+    content: '<div class="selectmarker">\
+    <p><small>Standard</small></p>\
+    <img class="updatemarkershadow" src="http://maps.google.com/mapfiles/markerTransparent.png">\
+    <img class="updatemarkershadow" src="http://maps.google.com/mapfiles/shadow50.png">\
+    <img class="updatemarkershadow" src="http://maps.gstatic.com/intl/en_ALL/mapfiles/drag_cross_67_16.png">\
+    <img class="updatemarkershadow" src="http://maps.google.com/mapfiles/dithshadow.gif">\
+    <p><small>12x20</small></p>\
+    <img class="updatemarkershadow" src="http://labs.google.com/ridefinder/images/mm_20_shadow.png">\
+    <p><small>Custom</small></p>\
+    <img src="http://mapicons.nicolasmollet.com/wp-content/uploads/2011/02/shadow.png">\
+  </div>'
+}
+
+jQuery('img.markericonshadow').popover(popOverIconshadowSettings);
+//change icon when clicking the image
+jQuery('#markers').on('click', 'img.updatemarkershadow', function(){
+  jQuery(this).closest('fieldset').find('input[data-type="markericonshadow"]').val(jQuery(this).attr('src'));
+  jQuery(this).closest('fieldset').find('img.markericonshadow').attr('src', jQuery(this).attr('src'));
+  jQuery('img.markericonshadow').popover('hide');
+  updateMapFromFields();
+  //trigger a marker click to update fields
+ //google.maps.event.trigger(marker, 'dragend', {});
+});
+//******************end marker iconshadow html***********************//
+
 //******************end markers*******************//
 
 //******************marker helper buttons***********************//
