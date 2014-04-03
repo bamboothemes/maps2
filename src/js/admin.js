@@ -587,6 +587,7 @@ jQuery('img.markericon').popover(popOverIconSettings);
 //change icon when clicking the image
 jQuery('#markers').on('click', 'img.updatemarker', function(){
   jQuery(this).closest('fieldset').find('input[data-type="markericon"]').val(jQuery(this).attr('src'));
+  jQuery(this).closest('fieldset').find('img.markericon').attr('src', jQuery(this).attr('src'));
   jQuery('img.markericon').popover('hide');
   updateMapFromFields();
   //trigger a marker click to update fields
