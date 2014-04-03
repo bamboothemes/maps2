@@ -356,7 +356,7 @@ function addMarker(location) {
   var marker = new google.maps.Marker({
     markerid: markers.length,
     position: location,
-    title: null,
+    title: '',
     icon: 'http://maps.google.com/mapfiles/marker.png',
     shadow: 'http://maps.google.com/mapfiles/shadow50.png',
     windowcontent: '',
