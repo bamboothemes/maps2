@@ -11,7 +11,6 @@
 	<description>MOD_JBMAPS2_DESC</description>
 	<files>
 		<filename module="mod_jbmaps2">mod_jbmaps2.php</filename>
-		<folder>docs</folder>
 		<folder>fields</folder>
 		<folder>js</folder>
 		<folder>language</folder>
