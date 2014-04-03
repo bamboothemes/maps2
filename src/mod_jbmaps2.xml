@@ -29,7 +29,7 @@
 			<fieldset name="basic">
 				<field name="markerhelpers" type="markerhelpers" label="" />
 				<field name="mappresets" type="filelist" default="" label="MOD_JBMAPS2_MAPCUSTOMSTYLEPRESET_LABEL" filter="json"  description="" directory="modules/mod_jbmaps2/presets" hide_default="true" exclude="" stripext="true" />
-				<field name="..." type="note" label="" description="The settings for the presets can be found in the style tab." class="alert alert-info" close="..." />
+				<field name=".stylesnote" type="note" label="" description="The settings for the presets can be found in the style tab." class="alert alert-info" close="true" />
 				<field name="previewmap" type="previewmap" label="MOD_JBMAPS2_PREVIEWMAP_LABEL" description="MOD_JBMAPS2_PREVIEWMAP_DESC" />
 				<field name="mapsearch" type="text" default="" label="MOD_JBMAPS2_MAPSEARCH_LABEL" description="MOD_JBMAPS2_MAPSEARCH_DESC" />
 				<field name="mapwidth" type="text" default="600px" label="MOD_JBMAPS2_MAPWIDTH_LABEL" description="MOD_JBMAPS2_MAPWIDTH_DESC" class="input-mini jbmaps2-mapwidth" />
