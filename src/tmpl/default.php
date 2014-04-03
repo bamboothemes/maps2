@@ -61,8 +61,7 @@ if ($markerdata && $markerdata !== '[]') {
 			markerid: markers".$module->id."[i][0],
 			title: markers".$module->id."[i][3],
 			icon: markers".$module->id."[i][4],
-			shadow: markers".$module->id."[i][5],
-			windowcontent: markers".$module->id."[i][6],
+			windowcontent: markers".$module->id."[i][5],
 			map: map".$module->id."
 		});
 console.debug(marker".$module->id.");";
