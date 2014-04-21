@@ -28,7 +28,7 @@ if ($mapcontrols) { //we have at least one selected so turn each on or off as ne
 	}
 }
 
-$mapcss = '#jbmaps2-'.$module->id.'{width:'.$mapwidth.';height:'.$mapheight.';max-width:100%}.gmnoprint img {max-width: none;}';
+$mapcss = '#jbmaps2-'.$module->id.'{width:'.$mapwidth.';height:'.$mapheight.';max-width:100%}.gmnoprint img {max-width: none;}img[src*="gstatic.com/"], img[src*="googleapis.com/"] {max-width: none;}';
 
 //check for custom styles
 $styles = '';
