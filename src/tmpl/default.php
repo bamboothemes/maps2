@@ -157,6 +157,11 @@ $script .= "}";
 
 $script .= "google.maps.event.addDomListener(window, 'load', initialize".$module->id.");";
 
+//re-initialize map
+if ($trigger !== '') {
+	$script .= "jQuery(document).ready(function() { jQuery( '".$trigger."' ).click(function() {setTimeout(function(){initialize".$module->id."();},".$triggerdelay.");}); });";
+}
+
 $document->addStyleDeclaration($mapcss);
 $document->addScriptDeclaration($script);
 ?>
