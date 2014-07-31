@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later</license>
 	<authorEmail>design@joomlabamboo.com</authorEmail>
 	<authorUrl>www.joomlabamboo.com</authorUrl>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<description>MOD_JBMAPS2_DESC</description>
 	<files>
 		<filename module="mod_jbmaps2">mod_jbmaps2.php</filename>
