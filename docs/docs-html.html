@@ -1,0 +1,83 @@
+<style>
+strong {font-weight:700}
+ul li {list-style-type: disc;margin-left:30px}
+ol li {margin-left:30px}
+</style>
+<h3>Introduction</h3>
+<p>Maps2 is a super easy tool to use to add a google map to your Joomla website. To get started just enter a location to search for and then when you have found it click on the preview where you want to place your marker. You can also drag the map preview in the admin to position the map perfectly on the front end. Also be sure to check out the different map styles in the styles tab. Have fun!</p>
+<p><strong>Note:</strong> This module was designed to work on the latest Joomla 3.2 versions. The module admin interface was redesigned around version 3.2.2 so if you are running a version previous to this you may see the admin controls in 2 columns.</p>
+<h3>General Map Controls</h3>
+<p>The preview map and the usual Joomla form controls are designed to work together to make it easier for you to position and style your map. Making changes on the map will alter the form fields and changing the for field values will also make the changes to the map, so you get an instant preview of your changes. You can zoom, drag, tilt and change the map type and the settings will be updated accordingly.</p>
+<p><strong>Location Search</strong> - This is a free search field which uses the geopositioning api to help you find a location. Start typing an address, zip/postal code or landmark in the field to centre the map on the location. The search is provided by Google and will return the same results as when searching on Google maps. The field has no effect on the front end of the site, it is just to help you position the map.</p>
+<p><strong>Map Size</strong>&nbsp;- The width and height of the map can be specified in any standard css units (px,%,em) and the preview map will adjust to the new size. If you specify a width larger than the available space in the admin area, the value in the width field will still be used on the front end of the site and the map will be centred using the same position on both maps.</p>
+<p><strong>Zoom</strong> - There are 21 levels of zoom available from 0 to 20, 0 being the lowest zoom and 20 the highest.</p>
+<p>Adjusting the select list will change the zoom level on the preview map.</p>
+<p>The preview map zoom can be adjusted in 2 ways. If the zoom control is enabled, using it will change the value of the select list. You can also use the mouse wheel to zoom in and out on the map, also updating the select field.</p>
+<p>The map cannot be zoomed by double clicking as click events are reserved for adding and removing markers.</p>
+<p><strong>Tilt</strong> - Tilt will angle the map at 45° to give some perspective to the map image. Tilt is only available at zoom level 18 and above for supported areas. If tilt is set to 45° and a map is zoomed out then it will reset to 0 until zoomed in.</p>
+<p><strong>Heading</strong>&nbsp;- Heading allows you to rotate the map at 90° intervals. It is only available when tilt is enabled so the same restrictions apply to heading as they do to tilt.</p>
+<p><strong>Position</strong>&nbsp;- The Latitude and Longitude values determine the centre of the map. If you already have the correct values you would like to use then you can add them here. If not, then you can use the location search to set the approximate centre and then drag the map around until you find the position you want to use, the fields will be updated automatically.</p>
+<p><strong>Type</strong> – The 4 standard map types are supported.</p>
+<ol>
+<li>Roadmap - displays the default road map view. This is the default map type.</li>
+<li>Satellite - displays Google Earth satellite images.</li>
+<li>Hybrid - displays a mixture of normal and satellite views.</li>
+<li>Terrain - displays a physical map based on terrain information.</li>
+</ol>
+<p><strong>Controls</strong>&nbsp;- The radio buttons toggle on and off the different map controls available for the user (and also in the preview).</p>
+<p><img src="images/extensions/jbmaps2/map-controls.jpg" width="800" height="600" alt="map-controls" /></p>
+<ul>
+<li>The Zoom control displays a slider (for large maps) or small "+/-" buttons (for small maps) to control the zoom level of the map. This control appears by default in the top left corner of the map on non-touch devices or in the bottom left corner on touch devices.</li>
+<li>The Pan control displays buttons for panning the map. This control appears by default in the top left corner of the map on non-touch devices. The Pan control also allows you to rotate 45° imagery, if available.</li>
+<li>The Scale control displays a map scale element. This control is not enabled by default.</li>
+<li>The MapType control lets the user toggle between map types (such as ROADMAP and SATELLITE). This control appears by default in the top right corner of the map.</li>
+<li>The Street View control contains a Pegman icon which can be dragged onto the map to enable Street View. This control appears by default in the top left corner of the map.</li>
+<li>The Rotate control contains a small circular icon which allows you to rotate maps containing oblique imagery. This control appears by default in the top left corner of the map. (See 45° Imagery for more information.)</li>
+<li>The Overview Map control displays a thumbnail overview map reflecting the current map viewport within a wider area. This control appears by default in the bottom right corner of the map, and is by default shown in its collapsed state.</li>
+<li>Draggable - The drag option toggles the users ability to drag the map around. When set to no the map will be fixed to the centre coordinates.</li>
+</ul>
+<h3>Markers</h3>
+<h4>Adding and Removing</h4>
+<p><strong>Placing markers</strong> - Markers are added to the map with a single mouse click and will be placed at the location of the click</p>
+<p><strong>Moving markers</strong> – You can move the location of the marker by clicking and holding with the mouse and dragging it to a new location.</p>
+<p><strong>Deleting markers</strong> – To remove a marker from the map you can double click on the marker. A confirmation window will appear to prevent accidental removal.</p>
+<h4>Marker helpers</h4>
+<p>After adding a marker to the map, a new set of buttons appear above the map preview window.</p>
+<p><strong>Remove all markers</strong>&nbsp;- This will clear all marker information from the map.</p>
+<p><strong>Fit map to markers</strong>&nbsp;- If you loose track of placed markers or simply want to zoom the map to fit nicely around the markers that have been placed, this button will re-zoom and re-centre the map to make all placed markers visible.</p>
+<h4>Marker Content</h4>
+<p>After a marker has been placed, a new set of fields are created under the markers tab where you can add a title, info window text and choose a marker icon (or enter a custom one).</p>
+<p><img src="images/extensions/jbmaps2/markers.png" width="613" height="586" alt="markers" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+<p><strong>Marker title</strong> - The marker title is the text that is shown when the mouse is hovered over the marker. It does not show in the info window.</p>
+<p><strong>Marker Text</strong>&nbsp;- This is the text that is shown in the pop-up info window when a user clicks on a marker. It can contain html.</p>
+<p><strong>Marker icon</strong>&nbsp;- The current marker icon is shown to the right of the marker field. Clicking on the marker opens a pop-up with a number of selectable alternatives, you can click on another marker to replace the current one. You can also enter the url of your own icon directly into the icon field input.</p>
+<p><strong>Delete marker</strong>&nbsp;- This removes the selected marker from the map. You can also do this on the map by double clicking the marker.</p>
+<h3>Layers</h3>
+<p>The Google maps api offers a number of additional layers that can be added to the base map tiles. These options can be found in the layers tab and are outlined below. Enabling a layer will also add it to the preview map. You can use more than one layer on a single map.</p>
+<p><strong>Weather layer</strong>&nbsp;- Enabling the weather layer adds the current and future weather to the map. The icons showing the current weather can be clicked to open an info window with more detailed information including humidity, wind speed and the weather on future dates.</p>
+<p>After enabling the weather layer you can select the temperature and wind units and also the colour of the labels.</p>
+<p><strong>Cloud Layer</strong> – Enabling the cloud layer shows the current cloud cover. The cloud layer is only visible at zoom levels 7 and above.</p>
+<p><strong>Traffic layer</strong>&nbsp;- The traffic layer shows Google traffic information for major roads (not available in all locations) . The colour of the roads is explained as follows:</p>
+<ul>
+<li>Green - more than 50 mph or 80 kph.</li>
+<li>Yellow - 25-50 mph or 40-80 kph.</li>
+<li>Red - less than 25 mph or 40 kph.</li>
+<li>Red/Black - very slow, stop-and-go traffic.</li>
+<li>Gray - No data currently available.</li>
+</ul>
+<p><strong>Transit layer</strong> - The transit layer shows public transportation (limited to major cities). The colour of the transit line is based on information provided by the transit operator. Enabling this layer will alter the base map style to emphasise the overlay.</p>
+<p><strong>Bicycling layer</strong>&nbsp;- Enabling this layer highlights bike paths, bike routes and other overlays specific to cycling. Enabling this layer will alter the base map style to emphasise the overlay.</p>
+<p><strong>KML layer</strong> – <strong>K</strong>eyhole <strong>M</strong>arkup <strong>L</strong>anguage is written in xml and is specific to geographical annotation. You can create your own kml file and add the path to that file in this input to add it to the map. You can write kml files by hand or generate them using the <a href="http://www.google.com/earth/" title="Google Earth Application" target="_blank">Google Earth application</a> and other online tools.</p>
+<h3>Styles</h3>
+<p>The Google maps api v3 allows you to customise the presentation of the standard base map tiles. It works by targeting specific map features (featureType) and then applying hue, colour, lightness/gamma values to those features (Stylers).</p>
+<p>The styling information is written in the JSON format.</p>
+<p>The styles tab contains a number of links to sites that either help you to produce the styling information, or provide code for pre-defined styles.</p>
+<p>A preset option is provided in the module settings above the preview map. It contains a number of popular map styles which can be added to the map by selecting the name from the dropdown list.</p>
+<p>Selecting a preset will populate the styles textarea with the JSON information for that style.</p>
+<p>To add you own styles to the preset to use again in the future, you can save your styles in a JSON file and add it to the modules preset folder (no spaces in the file name). The file name will then show in the preset list.</p>
+<p><strong>Styles not working</strong> - If you find that your styles are not added to the map,there may be a problem with the code syntax. If the code is not valid, a red warning box will appear above map styles input and the style will not be applied to the map. The warning will be removed when any errors are corrected.</p>
+<h3>Reloading the Map (advanced)</h3>
+<p>For the map to load correctly, it needs to be in a position that is visible when the page is loaded in order for the map to know the dimensions of the area it should fill.</p>
+<p>In some cases you may want to load the map in a position that is hidden on pageload such as in a tab or modal. In these cases a re-initialization of the map is needed once it becomes visible. This is possible through the 'Trigger Selectors' and 'Trigger Delay' options in the advanced tab of the module options.</p>
+<p><strong>Trigger Selectors</strong> - A jQuery selector can be added to the input to cause the map to reload when the selector is clicked. Any quotes need to be double quotes and multiple selectors can be added separated by a comma in the usual jQuery format.</p>
+<p><strong>Trigger Delay (optional)</strong> – Sometimes there needs to be a delay in the initialization after the click event has been triggered. For example, if the map is in a sliding tab that takes 500 milliseconds to appear due to an effect, it may be necessary to delay the reload by 500 or more milliseconds. You can add an integer value to this field to delay the reload by a specified number of milliseconds. If the field is empty there will be no delay on the reload after the click trigger event.</p>
