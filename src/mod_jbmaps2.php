@@ -53,6 +53,8 @@ if ($dnsprefetch !== '0') {
 	$document->addHeadLink( '//maps.gstatic.com', 'dns-prefetch', 'rel' );
 	$document->addHeadLink( '//maps.googleapis.com', 'dns-prefetch', 'rel' );
 	$document->addHeadLink( '//maps.google.com', 'dns-prefetch', 'rel' );
+	$document->addHeadLink( '//mt0.google.com ', 'dns-prefetch', 'rel' );
+	$document->addHeadLink( '//mt1.google.com ', 'dns-prefetch', 'rel' );
 }
 
 //add the main script
