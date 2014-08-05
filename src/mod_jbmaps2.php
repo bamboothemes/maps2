@@ -43,10 +43,17 @@ $mapbicyclinglayer	= $params->get('mapbicyclinglayer', 0);
 $mapkmllayer		= $params->get('mapkmllayer', 0);
 $trigger			= $params->get('trigger', '');
 $triggerdelay		= $params->get('triggerdelay', '0');
+$dnsprefetch		= $params->get('dnsprefetch', '1');
 //$			= $params->get('', '');
 //$			= $params->get('', '');
 //$			= $params->get('', '');
-//$			= $params->get('', '');
+
+//add dns-prefetch links
+if ($dnsprefetch !== '0') {
+	$document->addHeadLink( '//maps.gstatic.com', 'dns-prefetch', 'rel' );
+	$document->addHeadLink( '//maps.googleapis.com', 'dns-prefetch', 'rel' );
+	$document->addHeadLink( '//maps.google.com', 'dns-prefetch', 'rel' );
+}
 
 //add the main script
 $mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;libraries=weather&amp;language='.$languageCode;

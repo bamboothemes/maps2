@@ -116,6 +116,10 @@
 				<field name="maptriggerstext" type="note" default="" label="MOD_JBMAPS2_MAPTRIGGERSNOTE_LABEL" description="MOD_JBMAPS2_MAPTRIGGERSNOTE_DESC" />
 				<field name="trigger" type="text" default="" label="MOD_JBMAPS2_TRIGGER_LABEL" description="MOD_JBMAPS2_TRIGGER_DESC" filter="safehtml" />
 				<field name="triggerdelay" type="text" default="" label="MOD_JBMAPS2_TRIGGERDELAY_LABEL" description="MOD_JBMAPS2_TRIGGERDELAY_DESC" filter="integer" />
+				<field name="dnsprefetch" type="radio" label="MOD_JBMAPS2_DNSPREFIX_LABEL" description="MOD_JBMAPS2_DNSPREFIX_DESC" default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 				<field name="moduleclass_sfx" type="textarea" rows="3" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
 				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
 			</fieldset>
