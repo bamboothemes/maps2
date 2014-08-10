@@ -104,6 +104,11 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+				<field name="mappanoramiolayer" type="radio" label="MOD_JBMAPS2_MAPPANORAMIOLAYER_LABEL" description="MOD_JBMAPS2_MAPPANORAMIOLAYER_DESC" default="0" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+				<field name="mappanoramiotag" type="text" default="" label="MOD_JBMAPS2_MAPPANORAMIOTAG_LABEL" description="MOD_JBMAPS2_MAPPANORAMIOTAG_DESC" />
 				<field name="mapkmllayer" type="text" default="" label="MOD_JBMAPS2_MAPKMLLAYER_LABEL" description="MOD_JBMAPS2_MAPKMLLAYER_DESC" />
 			</fieldset>
 			<fieldset name="styles">
@@ -113,6 +118,11 @@
 				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
 			</fieldset>
 			<fieldset name="advanced">
+				<field name="mapapitext" type="note" default="" label="MOD_JBMAPS2_MAPAPINOTE_LABEL" description="MOD_JBMAPS2_MAPAPINOTE_DESC" />
+				<field name="loadmapsapi" type="radio" label="MOD_JBMAPS2_LOADMAPSAPI_LABEL" description="MOD_JBMAPS2_LOADMAPSAPI_DESC" default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 				<field name="maptriggerstext" type="note" default="" label="MOD_JBMAPS2_MAPTRIGGERSNOTE_LABEL" description="MOD_JBMAPS2_MAPTRIGGERSNOTE_DESC" />
 				<field name="trigger" type="text" default="" label="MOD_JBMAPS2_TRIGGER_LABEL" description="MOD_JBMAPS2_TRIGGER_DESC" filter="safehtml" />
 				<field name="triggerdelay" type="text" default="" label="MOD_JBMAPS2_TRIGGERDELAY_LABEL" description="MOD_JBMAPS2_TRIGGERDELAY_DESC" filter="integer" />

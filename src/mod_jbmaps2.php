@@ -40,12 +40,13 @@ $mapcloudlayer		= $params->get('mapcloudlayer', 0);
 $maptrafficlayer	= $params->get('maptrafficlayer', 0);
 $maptransitlayer	= $params->get('maptransitlayer', 0);
 $mapbicyclinglayer	= $params->get('mapbicyclinglayer', 0);
+$mappanoramiolayer	= $params->get('mappanoramiolayer', 0);
+$mappanoramiotag	= $params->get('mappanoramiotag', 0);
 $mapkmllayer		= $params->get('mapkmllayer', 0);
+$loadmapsapi		= $params->get('loadmapsapi', 1);
 $trigger			= $params->get('trigger', '');
 $triggerdelay		= $params->get('triggerdelay', '0');
 $dnsprefetch		= $params->get('dnsprefetch', '1');
-//$			= $params->get('', '');
-//$			= $params->get('', '');
 //$			= $params->get('', '');
 
 //add dns-prefetch links
@@ -58,8 +59,13 @@ if ($dnsprefetch !== '0') {
 }
 
 //add the main script
-$mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;libraries=weather&amp;language='.$languageCode;
-$document->addScript($mapsScript);
+if ($loadmapsapi && ($mapweatherlayer || $mapcloudlayer ||  $mappanoramiolayer)) {
+	$mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;libraries=weather,panoramio&amp;language='.$languageCode;
+	$document->addScript($mapsScript);
+} elseif ($loadmapsapi) {
+	$mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;language='.$languageCode;
+	$document->addScript($mapsScript);
+}
 
 require JModuleHelper::getLayoutPath('mod_jbmaps2', $params->get('layout', 'default'));
 ?>

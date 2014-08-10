@@ -28,7 +28,7 @@ if ($mapcontrols) { //we have at least one selected so turn each on or off as ne
 	}
 }
 
-$mapcss = '#jbmaps2-'.$module->id.'{width:'.$mapwidth.';height:'.$mapheight.';max-width:100%}.gmnoprint img {max-width: none;}img[src*="gstatic.com/"], img[src*="googleapis.com/"] {max-width: none;}';
+$mapcss = '#jbmaps2-'.$module->id.'{width:'.$mapwidth.';height:'.$mapheight.';max-width:100%}img[src*="gstatic.com/"], img[src*="googleapis.com/"] {max-width: none!important;}';
 
 //check for custom styles
 $styles = '';
@@ -145,6 +145,14 @@ if ($mapbicyclinglayer) {
 	$script .= "var bikeLayer".$module->id." = new google.maps.BicyclingLayer();
 	bikeLayer".$module->id.".setMap(map".$module->id.");
 	";
+}
+if ($mappanoramiolayer) {
+	$script .= "var panoramioLayer = new google.maps.panoramio.PanoramioLayer();
+	panoramioLayer.setMap(map".$module->id.");
+	";
+	if ($mappanoramiotag) {
+		$script .= "panoramioLayer.setTag('".$mappanoramiotag."');";
+	}
 }
 if ($mapkmllayer) {
 	$script .= "var kmlLayer".$module->id." = new google.maps.KmlLayer({

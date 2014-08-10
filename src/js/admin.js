@@ -94,7 +94,7 @@ function updateMapType(){
       jQuery('#mapstylewarning').hide().html('<div class="alert alert-error">The style is not valid JSON</div>').fadeIn('slow');
       //console.log('map style is not valid JSON string');
     }
-  };
+  }
   if (selectedmaptype === 'SATELLITE') {
     map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
   } else if (selectedmaptype === 'HYBRID') {
@@ -135,10 +135,10 @@ jQuery('#jform_params_mappresets').change(function() {
         }else{
           jQuery('#mapstylewarning').hide().html('<div class="alert alert-error">The file contents are not valid JSON</div>').fadeIn('slow');
           map.setOptions({styles: null});
-        };
+        }
       }
     });
-  };
+  }
   
 });
 //******************end maptype*******************//
@@ -220,11 +220,9 @@ function updateMapWeather(){
  // updateLabelColor(jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val());
 }
 function updateTemperature(units){
-  console.log(units);
   weatherLayer.setOptions({'temperatureUnits': units});
 }
 function updateWind(units){
-  console.log(units);
   weatherLayer.setOptions({'windSpeedUnits': units});
 }
 function updateLabelColor(color) {
@@ -242,18 +240,18 @@ jQuery('#jform_params_mapweatherlayer').click(function(){
     jQuery('#jform_params_mapweatherunits').closest('.control-group').hide(500);
     jQuery('#jform_params_mapwindunits').closest('.control-group').hide(500);
     jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide(500);
-  };
+  }
 });
 //check if we need to hide fields on pageload
 if (parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val())) {
-  jQuery('#jform_params_mapweatherunits').closest('.control-group').show(500);
-  jQuery('#jform_params_mapwindunits').closest('.control-group').show(500);
-  jQuery('#jform_params_mapweatherlabels').closest('.control-group').show(500);
+  jQuery('#jform_params_mapweatherunits').closest('.control-group').show();
+  jQuery('#jform_params_mapwindunits').closest('.control-group').show();
+  jQuery('#jform_params_mapweatherlabels').closest('.control-group').show();
 }else{
-  jQuery('#jform_params_mapweatherunits').closest('.control-group').hide(500);
-  jQuery('#jform_params_mapwindunits').closest('.control-group').hide(500);
-  jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide(500);
-};
+  jQuery('#jform_params_mapweatherunits').closest('.control-group').hide();
+  jQuery('#jform_params_mapwindunits').closest('.control-group').hide();
+  jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide();
+}
 //toggle units
 jQuery('#jform_params_mapweatherunits').click(function(){
   if (jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val() === 'google.maps.weather.TemperatureUnit.CELSIUS') {
@@ -319,6 +317,37 @@ jQuery('#jform_params_mapbicyclinglayer').click(function(){
 });
 //******************end bicycling layer*******************//
 
+//******************panoramio layer***********************//
+var panoramioLayer = new google.maps.panoramio.PanoramioLayer();
+
+function updateMapPanoramio(){
+  panoramioLayer.setMap(parseInt(jQuery('#jform_params_mappanoramiolayer input[type=radio]:checked').val()) ? map : null);
+  panoramioLayer.setTag(String(jQuery('#jform_params_mappanoramiotag').val()));
+}
+//set on pageload
+updateMapPanoramio();
+//check activation toggle 
+jQuery('#jform_params_mappanoramiolayer').click(function(){
+  if (parseInt(jQuery('#jform_params_mappanoramiolayer input[type=radio]:checked').val())) {
+    panoramioLayer.setMap(map);
+    jQuery('#jform_params_mappanoramiotag').closest('.control-group').show(500);
+  }else{
+    panoramioLayer.setMap(null);
+    jQuery('#jform_params_mappanoramiotag').closest('.control-group').hide(500);
+  }
+});
+//check if we need to hide fields on pageload
+if (parseInt(jQuery('#jform_params_mappanoramiolayer input[type=radio]:checked').val())) {
+  jQuery('#jform_params_mappanoramiotag').closest('.control-group').show();
+}else{
+  jQuery('#jform_params_mappanoramiotag').closest('.control-group').hide();
+}
+jQuery('#jform_params_mappanoramiotag').bind('input propertychange', 'input,textarea', function() {
+  panoramioLayer.setTag(String(jQuery(this).val()));
+});
+
+//******************end panoramio layer*******************//
+
 //******************kml layer*******************//
 function updateKml(){
   kmlfile = jQuery('#jform_params_mapkmllayer').val();
@@ -329,7 +358,7 @@ function updateKml(){
     //console.log('update url');
     kmlLayer.setOptions({'url': kmlfile});
     kmlLayer.setMap(map);
-  };
+  }
 }
 jQuery('#jform_params_mapkmllayer').focusout(function(){
   updateKml();
@@ -378,7 +407,7 @@ function addMarker(location) {
         markers = [];
       }else{
         markers.splice(id,1);
-      };
+      }
       updateFieldsFromMap();
     }
   });
@@ -439,7 +468,7 @@ function updateFieldsFromMap(){
     document.getElementById('markerhelpers').innerHTML = markerHelpers;
   } else {
     document.getElementById('markerhelpers').innerHTML = '';
-  };
+  }
   //update the hidden field
   jQuery('input#jform_params_markerdata').val(JSON.stringify(markerArray));
   //update the fields
@@ -460,10 +489,10 @@ function updateMapFromFields(){
       markerArray.push(markerInfo);    
     });
     jQuery('input#jform_params_markerdata').val(JSON.stringify(markerArray));
-  };
+  }
   //use the hidden field to update markers
   if (jQuery('input#jform_params_markerdata').val() !== '') {
-    savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val())
+    savedMarkers = JSON.parse(jQuery('input#jform_params_markerdata').val());
     for (i = 0; i < savedMarkers.length; i++) {
     //console.debug(savedMarkers[i]); 
     marker = new google.maps.Marker({
@@ -486,7 +515,7 @@ function updateMapFromFields(){
           markers = [];
         }else{
           markers.splice(id,1);
-        };
+        }
         updateFieldsFromMap();
       }
     });
@@ -506,13 +535,13 @@ function updateMapFromFields(){
           infowindow.setContent(this.windowcontent);
           infowindow.open(map, marker);
           console.log('opening');
-        };
-      };
-    }
+        }
+      }
+    };
   })(marker, i));
   
 }
-};
+}
 }
 //update markers when editing fields
 jQuery('#markers').on('keyup keypress change', 'input,textarea', function() {
@@ -526,7 +555,7 @@ jQuery('#markers').on('click', '.btn.removemarker', function(){
     jQuery(fieldset).remove();
     if (jQuery('fieldset[data-type="markerfieldset"]').length === 0) {
       jQuery('input#jform_params_markerdata').val('[]');
-    };
+    }
     updateMapFromFields();
   }
 });
@@ -576,7 +605,7 @@ var popOverIconSettings = {
       <p>&nbsp;</p>\
       <p><small><a href="http://mapicons.nicolasmollet.com/" target="_blank">Browse Icons Here (opens in a new window)</a></small></p>\
       </div>'
-}
+};
 
 jQuery('img.markericon').popover(popOverIconSettings);
 //change icon when clicking the image
@@ -608,7 +637,7 @@ jQuery('#markerhelpers').on('click', '.btn.fitmarkers', function(){
     lat = markers[i].getPosition().lat();
     lng = markers[i].getPosition().lng();
     LatLngList.push(new google.maps.LatLng (lat,lng));
-  };
+  }
   var bounds = new google.maps.LatLngBounds ();
   for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
     bounds.extend (LatLngList[i]);
