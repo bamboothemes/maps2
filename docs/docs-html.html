@@ -5,7 +5,7 @@ ol li {margin-left:30px}
 </style>
 <h3>Introduction</h3>
 <p>Maps2 is a super easy tool to use to add a google map to your Joomla website. To get started just enter a location to search for and then when you have found it click on the preview where you want to place your marker. You can also drag the map preview in the admin to position the map perfectly on the front end. Also be sure to check out the different map styles in the styles tab. Have fun!</p>
-<p><strong>Note:</strong> This module was designed to work on the latest Joomla 3.2 versions. The module admin interface was redesigned around version 3.2.2 so if you are running a version previous to this you may see the admin controls in 2 columns.</p>
+<p><strong>Note:</strong> This module was designed to work on the latest Joomla 3.x versions. The module admin interface was redesigned around version 3.2.2 so if you are running a version previous to this you may see the admin controls in 2 columns.</p>
 <h3>General Map Controls</h3>
 <p>The preview map and the usual Joomla form controls are designed to work together to make it easier for you to position and style your map. Making changes on the map will alter the form fields and changing the for field values will also make the changes to the map, so you get an instant preview of your changes. You can zoom, drag, tilt and change the map type and the settings will be updated accordingly.</p>
 <p><strong>Location Search</strong> - This is a free search field which uses the geopositioning api to help you find a location. Start typing an address, zip/postal code or landmark in the field to centre the map on the location. The search is provided by Google and will return the same results as when searching on Google maps. The field has no effect on the front end of the site, it is just to help you position the map.</p>
@@ -67,7 +67,7 @@ ol li {margin-left:30px}
 </ul>
 <p><strong>Transit layer</strong> - The transit layer shows public transportation (limited to major cities). The colour of the transit line is based on information provided by the transit operator. Enabling this layer will alter the base map style to emphasise the overlay.</p>
 <p><strong>Bicycling layer</strong> - Enabling this layer highlights bike paths, bike routes and other overlays specific to cycling. Enabling this layer will alter the base map style to emphasise the overlay.</p>
-<p><strong>Panoramio layer</strong> - The panoramio layer shows image thumbnails over the map from the panoramio.com service. The service allows to filter results by a single tag. If the tag filter input is left blank then no filter will be used.</p>
+<p><strong>Panoramio layer</strong> - The panoramio layer shows image thumbnails over the map from the <a href="http://www.panoramio.com" target="_blank">panoramio.com</a> service. The service allows to filter results by a single tag. If the tag filter input is left blank then no filter will be used.</p>
 <p><strong>KML layer</strong> – <strong>K</strong>eyhole <strong>M</strong>arkup <strong>L</strong>anguage is written in xml and is specific to geographical annotation. You can create your own kml file and add the path to that file in this input to add it to the map. You can write kml files by hand or generate them using the <a href="http://www.google.com/earth/" title="Google Earth Application" target="_blank">Google Earth application</a> and other online tools.</p>
 <h3>Styles</h3>
 <p>The Google maps api v3 allows you to customise the presentation of the standard base map tiles. It works by targeting specific map features (featureType) and then applying hue, colour, lightness/gamma values to those features (Stylers).</p>
@@ -79,8 +79,8 @@ ol li {margin-left:30px}
 <p><strong>Styles not working</strong> - If you find that your styles are not added to the map,there may be a problem with the code syntax. If the code is not valid, a red warning box will appear above map styles input and the style will not be applied to the map. The warning will be removed when any errors are corrected.</p>
 <h3>Advanced Parameters</h3>
 <p><strong>Loading the API</strong> - By default the module will load the maps api from Google. For a standard map, the normal api url will be called, but if a layer which requires an additional library is enabled then the api url is called with the libraries in the request.</p>
-<p>Leaving this option enabled is suitable in most cases, however, because of the way Joomla modules work, if two or modules are loaded on one page, one requiring a library and others not then the api will be called multiple times with and without the libraries.</p>
-<p>In this case the api would need to be disabled in the modules that do not require the additional libraries as the api called y the modules using them will be suitable for all module instances.</p>
+<p>Leaving this option enabled is suitable in most cases, however, because of the way Joomla modules work, if two or more modules are loaded on one page, one requiring a library and others not then the api will be called multiple times with and without the libraries.</p>
+<p>In this case the api would need to be disabled in the modules that do not require the additional libraries as the api called by the modules using them will be suitable for all module instances.</p>
 <p>The layers that require the libraries are: <strong>Weather</strong>, <strong>Clouds</strong> and <strong>Panoramio</strong>.</p>
 <p>This option can also stop conflicts with other extensions that load the api on the same page.</p>
 <p><strong>Reloading the Map</strong> - For the map to load correctly, it needs to be in a position that is visible when the page is loaded in order for the map to know the dimensions of the area it should fill.</p>
