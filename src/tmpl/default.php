@@ -47,6 +47,7 @@ $script .= "	var mapOptions".$module->id." = {
 	mapTypeId: google.maps.MapTypeId.".$maptype.",
 	".$controls."
 	draggable: ".$mapdraggable.",
+	scrollwheel: ".$mapmousescroll.",
 	zoom: ".$mapzoom."
 };
 var map".$module->id." = new google.maps.Map(document.getElementById('jbmaps2-".$module->id."'), mapOptions".$module->id.");";

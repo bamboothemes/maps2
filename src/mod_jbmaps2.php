@@ -28,6 +28,7 @@ $mapcentlat			= $params->get('mapcentlat', '54.525961');
 $mapcentlon			= $params->get('mapcentlon', '15.255119');
 $maptype			= $params->get('maptype', 'ROADMAP');
 $mapdraggable		= $params->get('mapdraggable') == 1 ? 'true' : 'false';
+$mapmousescroll		= $params->get('mapmousescroll') == 1 ? 'true' : 'false';
 $markerinfobehaviour= $params->get('markerinfobehaviour', 'click');
 $markerdata			= $params->get('markerdata', '');
 $mapcustomstyle		= $params->get('mapcustomstyle', '');

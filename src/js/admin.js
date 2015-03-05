@@ -207,6 +207,14 @@ jQuery('#jform_params_mapdraggable').click(function(){
 map.set('draggable',jQuery('#jform_params_mapdraggable input[type=radio]:checked').val());
 //******************end drag*******************//
 
+//******************mouse scroll***********************//
+jQuery('#jform_params_mapmousescroll').click(function(){
+  map.set('scrollwheel',jQuery('#jform_params_mapmousescroll input[type=radio]:checked').val());
+});
+//set on pageload
+map.set('scrollwheel',jQuery('#jform_params_mapmousescroll input[type=radio]:checked').val());
+//******************end mousescroll*******************//
+
 //******************weather layer***********************//
 var weatherLayer = new google.maps.weather.WeatherLayer({
   temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS,

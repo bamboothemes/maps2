@@ -60,6 +60,10 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
+				<field name="mapmousescroll" type="radio" label="MOD_JBMAPS2_MAPMOUSESCROLL_LABEL" description="MOD_JBMAPS2_MAPMOUSESCROLL_DESC" default="1" class="btn-group btn-group-yesno">
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
 			</fieldset>
 			<fieldset name="markers">
 				<field name="markerinfobehaviour" type="list" label="MOD_JBMAPS2_MARKERINFOBEHAVIOUR_LABEL" description="MOD_JBMAPS2_MARKERINFOBEHAVIOUR_DESC" default="click" class="" >
