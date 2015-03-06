@@ -64,8 +64,7 @@ if ($markerdata && $markerdata !== '[]') {
 			icon: markers".$module->id."[i][4],
 			windowcontent: markers".$module->id."[i][5],
 			map: map".$module->id."
-		});
-console.debug(marker".$module->id.");";
+		});";
 if ($markerinfobehaviour === 'mouseover') {
 	$script .= "google.maps.event.addListener(marker".$module->id.", 'mouseover', (function(marker".$module->id.", i) {
 		return function() {
