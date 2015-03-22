@@ -20,8 +20,8 @@
 		<filename>LICENCE.txt</filename>
 	</files>
 	<languages folder="language">
-		<language tag="en-GB">en-GB.mod_jbmaps2.ini</language>
-		<language tag="en-GB">en-GB.mod_jbmaps2.sys.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_jbmaps2.ini</language>
+		<language tag="en-GB">en-GB/en-GB.mod_jbmaps2.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params" addfieldpath="/modules/mod_jbmaps2/fields">
