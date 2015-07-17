@@ -55,9 +55,6 @@ ol li {margin-left:30px}
 <p><strong>Delete marker</strong>&nbsp;- This removes the selected marker from the map. You can also do this on the map by double clicking the marker.</p>
 <h3>Layers</h3>
 <p>The Google maps api offers a number of additional layers that can be added to the base map tiles. These options can be found in the layers tab and are outlined below. Enabling a layer will also add it to the preview map. You can use more than one layer on a single map.</p>
-<p><strong>Weather layer</strong>&nbsp;- Enabling the weather layer adds the current and future weather to the map. The icons showing the current weather can be clicked to open an info window with more detailed information including humidity, wind speed and the weather on future dates.</p>
-<p>After enabling the weather layer you can select the temperature and wind units and also the colour of the labels.</p>
-<p><strong>Cloud Layer</strong> – Enabling the cloud layer shows the current cloud cover. The cloud layer is only visible at zoom levels 7 and above.</p>
 <p><strong>Traffic layer</strong>&nbsp;- The traffic layer shows Google traffic information for major roads (not available in all locations) . The colour of the roads is explained as follows:</p>
 <ul>
 <li>Green - more than 50 mph or 80 kph.</li>
@@ -68,7 +65,6 @@ ol li {margin-left:30px}
 </ul>
 <p><strong>Transit layer</strong> - The transit layer shows public transportation (limited to major cities). The colour of the transit line is based on information provided by the transit operator. Enabling this layer will alter the base map style to emphasise the overlay.</p>
 <p><strong>Bicycling layer</strong> - Enabling this layer highlights bike paths, bike routes and other overlays specific to cycling. Enabling this layer will alter the base map style to emphasise the overlay.</p>
-<p><strong>Panoramio layer</strong> - The panoramio layer shows image thumbnails over the map from the <a href="http://www.panoramio.com" target="_blank">panoramio.com</a> service. The service allows to filter results by a single tag. If the tag filter input is left blank then no filter will be used.</p>
 <p><strong>KML layer</strong> – <strong>K</strong>eyhole <strong>M</strong>arkup <strong>L</strong>anguage is written in xml and is specific to geographical annotation. You can create your own kml file and add the path to that file in this input to add it to the map. You can write kml files by hand or generate them using the <a href="http://www.google.com/earth/" title="Google Earth Application" target="_blank">Google Earth application</a> and other online tools.</p>
 <h3>Styles</h3>
 <p>The Google maps api v3 allows you to customise the presentation of the standard base map tiles. It works by targeting specific map features (featureType) and then applying hue, colour, lightness/gamma values to those features (Stylers).</p>
@@ -79,11 +75,8 @@ ol li {margin-left:30px}
 <p>To add you own styles to the preset to use again in the future, you can save your styles in a JSON file and add it to the modules preset folder (no spaces in the file name). The file name will then show in the preset list.</p>
 <p><strong>Styles not working</strong> - If you find that your styles are not added to the map,there may be a problem with the code syntax. If the code is not valid, a red warning box will appear above map styles input and the style will not be applied to the map. The warning will be removed when any errors are corrected.</p>
 <h3>Advanced Parameters</h3>
-<p><strong>Loading the API</strong> - By default the module will load the maps api from Google. For a standard map, the normal api url will be called, but if a layer which requires an additional library is enabled then the api url is called with the libraries in the request.</p>
-<p>Leaving this option enabled is suitable in most cases, however, because of the way Joomla modules work, if two or more modules are loaded on one page, one requiring a library and others not then the api will be called multiple times with and without the libraries.</p>
-<p>In this case the api would need to be disabled in the modules that do not require the additional libraries as the api called by the modules using them will be suitable for all module instances.</p>
-<p>The layers that require the libraries are: <strong>Weather</strong>, <strong>Clouds</strong> and <strong>Panoramio</strong>.</p>
-<p>This option can also stop conflicts with other extensions that load the api on the same page.</p>
+<p><strong>Loading the API</strong> - By default the module will load the maps api from Google.</p>
+<p>If another extension on the same page is also loading the maps api then it can lead to errors. In those cases you can use this option to prevent the module from loading the map api file.</p>
 <p><strong>Reloading the Map</strong> - For the map to load correctly, it needs to be in a position that is visible when the page is loaded in order for the map to know the dimensions of the area it should fill.</p>
 <p>In some cases you may want to load the map in a position that is hidden on pageload such as in a tab or modal. In these cases a re-initialization of the map is needed once it becomes visible. This is possible through the 'Trigger Selectors' and 'Trigger Delay' options in the advanced tab of the module options.</p>
 <p><strong>Trigger Selectors</strong> - A jQuery selector can be added to the input to cause the map to reload when the selector is clicked. Any quotes need to be double quotes and multiple selectors can be added separated by a comma in the usual jQuery format.</p>

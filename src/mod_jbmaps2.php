@@ -33,16 +33,9 @@ $markerinfobehaviour= $params->get('markerinfobehaviour', 'click');
 $markerdata			= $params->get('markerdata', '');
 $mapcustomstyle		= $params->get('mapcustomstyle', '');
 $mapcustommapname	= $params->get('mapcustommapname', '');
-$mapweatherlayer	= $params->get('mapweatherlayer', 0);
-$mapweatherunits	= $params->get('mapweatherunits', 'google.maps.weather.TemperatureUnit.CELSIUS');
-$mapwindunits		= $params->get('mapwindunits', 'google.maps.weather.WindSpeedUnit.METERS_PER_SECOND');
-$mapweatherlabels	= $params->get('mapweatherlabels') == 0 ? 'null' : $params->get('mapweatherlabels');
-$mapcloudlayer		= $params->get('mapcloudlayer', 0);
 $maptrafficlayer	= $params->get('maptrafficlayer', 0);
 $maptransitlayer	= $params->get('maptransitlayer', 0);
 $mapbicyclinglayer	= $params->get('mapbicyclinglayer', 0);
-$mappanoramiolayer	= $params->get('mappanoramiolayer', 0);
-$mappanoramiotag	= $params->get('mappanoramiotag', 0);
 $mapkmllayer		= $params->get('mapkmllayer', 0);
 $loadmapsapi		= $params->get('loadmapsapi', 1);
 $trigger			= $params->get('trigger', '');
@@ -60,10 +53,7 @@ if ($dnsprefetch !== '0') {
 }
 
 //add the main script
-if ($loadmapsapi && ($mapweatherlayer || $mapcloudlayer ||  $mappanoramiolayer)) {
-	$mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;libraries=weather,panoramio&amp;language='.$languageCode;
-	$document->addScript($mapsScript);
-} elseif ($loadmapsapi) {
+if ($loadmapsapi) {
 	$mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;language='.$languageCode;
 	$document->addScript($mapsScript);
 }

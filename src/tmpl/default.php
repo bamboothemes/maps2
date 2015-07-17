@@ -116,21 +116,6 @@ if ($mapheading) {
 	$script .= "map".$module->id.".setHeading(".$mapheading.");";
 }
 
-
-if ($mapweatherlayer) {
-	$script .= "var weatherLayer".$module->id." = new google.maps.weather.WeatherLayer({
-		temperatureUnits: ".$mapweatherunits.",
-		windSpeedUnits: ".$mapwindunits.",
-		labelColor: ".$mapweatherlabels."
-	});
-weatherLayer".$module->id.".setMap(map".$module->id.");
-";
-}
-if ($mapcloudlayer) {
-	$script .= "var cloudLayer".$module->id." = new google.maps.weather.CloudLayer();
-	cloudLayer".$module->id.".setMap(map".$module->id.");
-	";
-}
 if ($maptrafficlayer) {
 	$script .= "var trafficLayer".$module->id." = new google.maps.TrafficLayer();
 	trafficLayer".$module->id.".setMap(map".$module->id.");
@@ -145,14 +130,6 @@ if ($mapbicyclinglayer) {
 	$script .= "var bikeLayer".$module->id." = new google.maps.BicyclingLayer();
 	bikeLayer".$module->id.".setMap(map".$module->id.");
 	";
-}
-if ($mappanoramiolayer) {
-	$script .= "var panoramioLayer = new google.maps.panoramio.PanoramioLayer();
-	panoramioLayer.setMap(map".$module->id.");
-	";
-	if ($mappanoramiotag) {
-		$script .= "panoramioLayer.setTag('".$mappanoramiotag."');";
-	}
 }
 if ($mapkmllayer) {
 	$script .= "var kmlLayer".$module->id." = new google.maps.KmlLayer({

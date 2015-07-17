@@ -215,92 +215,6 @@ jQuery('#jform_params_mapmousescroll').click(function(){
 map.set('scrollwheel',jQuery('#jform_params_mapmousescroll input[type=radio]:checked').val());
 //******************end mousescroll*******************//
 
-//******************weather layer***********************//
-var weatherLayer = new google.maps.weather.WeatherLayer({
-  temperatureUnits: google.maps.weather.TemperatureUnit.CELSIUS,
-  windSpeedUnits: google.maps.weather.WindSpeedUnit.METERS_PER_SECOND,
-  labelColor: google.maps.weather.LabelColor.BLACK
-});
-function updateMapWeather(){
-  weatherLayer.setMap(parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val()) ? map : null);
- // updateTemperature(jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val());
- // updateWind(jQuery('#jform_params_mapwindunits option:selected').val());
- // updateLabelColor(jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val());
-}
-function updateTemperature(units){
-  weatherLayer.setOptions({'temperatureUnits': units});
-}
-function updateWind(units){
-  weatherLayer.setOptions({'windSpeedUnits': units});
-}
-function updateLabelColor(color) {
-  weatherLayer.setOptions({'labelColor': color});
-}
-
-jQuery('#jform_params_mapweatherlayer').click(function(){
-  if (parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val())) {
-    weatherLayer.setMap(map);
-    jQuery('#jform_params_mapweatherunits').closest('.control-group').show(500);
-    jQuery('#jform_params_mapwindunits').closest('.control-group').show(500);
-    jQuery('#jform_params_mapweatherlabels').closest('.control-group').show(500);
-  }else{
-    weatherLayer.setMap(null);
-    jQuery('#jform_params_mapweatherunits').closest('.control-group').hide(500);
-    jQuery('#jform_params_mapwindunits').closest('.control-group').hide(500);
-    jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide(500);
-  }
-});
-//check if we need to hide fields on pageload
-if (parseInt(jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val())) {
-  jQuery('#jform_params_mapweatherunits').closest('.control-group').show();
-  jQuery('#jform_params_mapwindunits').closest('.control-group').show();
-  jQuery('#jform_params_mapweatherlabels').closest('.control-group').show();
-}else{
-  jQuery('#jform_params_mapweatherunits').closest('.control-group').hide();
-  jQuery('#jform_params_mapwindunits').closest('.control-group').hide();
-  jQuery('#jform_params_mapweatherlabels').closest('.control-group').hide();
-}
-//toggle units
-jQuery('#jform_params_mapweatherunits').click(function(){
-  if (jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val() === 'google.maps.weather.TemperatureUnit.CELSIUS') {
-    updateTemperature(google.maps.weather.TemperatureUnit.CELSIUS);
-  } else if (jQuery('#jform_params_mapweatherunits input[type=radio]:checked').val() === 'google.maps.weather.TemperatureUnit.FAHRENHEIT') { 
-    updateTemperature(google.maps.weather.TemperatureUnit.FAHRENHEIT);
-  };
-});
-jQuery('#jform_params_mapwindunits').change(function(){
-  if (jQuery('#jform_params_mapwindunits option:selected').val() === 'google.maps.weather.WindSpeedUnit.KILOMETERS_PER_HOUR') {
-    updateWind(google.maps.weather.WindSpeedUnit.KILOMETERS_PER_HOUR);
-  } else if (jQuery('#jform_params_mapwindunits option:selected').val() === 'google.maps.weather.WindSpeedUnit.METERS_PER_SECOND') {
-    updateWind(google.maps.weather.WindSpeedUnit.METERS_PER_SECOND);
-  } else if (jQuery('#jform_params_mapwindunits option:selected').val() === 'google.maps.weather.WindSpeedUnit.MILES_PER_HOUR') {
-    updateWind(google.maps.weather.WindSpeedUnit.MILES_PER_HOUR);
-  };
-});
-jQuery('#jform_params_mapweatherlabels').change(function(){
-  if (jQuery('#jform_params_mapweatherlabels option:selected').val() === '0') {
-    updateLabelColor(null);
-  } else if (jQuery('#jform_params_mapweatherlabels option:selected').val() === 'google.maps.weather.LabelColor.BLACK') {
-    updateLabelColor(google.maps.weather.LabelColor.BLACK);
-  } else if (jQuery('#jform_params_mapweatherlabels option:selected').val() === 'google.maps.weather.LabelColor.WHITE') {
-    updateLabelColor(google.maps.weather.LabelColor.WHITE);
-  };
-});
-//set on pageload
-updateMapWeather();
-weatherLayer.setOptions({'labelColor': jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val()});
-//console.log(jQuery('#jform_params_mapweatherlabels option:selected').val() == 0 ? null : jQuery('#jform_params_mapweatherlabels option:selected').val());
-//map.set('weatherLayer',jQuery('#jform_params_mapweatherlayer input[type=radio]:checked').val());
-//******************end weather layer*******************//
-
-//******************cloud layer ***********************//
-var cloudLayer = new google.maps.weather.CloudLayer();
-cloudLayer.setMap(parseInt(jQuery('#jform_params_mapcloudlayer input[type=radio]:checked').val()) ? map : null);
-jQuery('#jform_params_mapcloudlayer').click(function(){
-  cloudLayer.setMap(parseInt(jQuery('#jform_params_mapcloudlayer input[type=radio]:checked').val()) ? map : null);
-});
-//******************end cloud layer*******************//
-
 //******************traffic layer***********************//
 var trafficLayer = new google.maps.TrafficLayer();
 trafficLayer.setMap(parseInt(jQuery('#jform_params_maptrafficlayer input[type=radio]:checked').val()) ? map : null);
@@ -325,37 +239,6 @@ jQuery('#jform_params_mapbicyclinglayer').click(function(){
 });
 //******************end bicycling layer*******************//
 
-//******************panoramio layer***********************//
-var panoramioLayer = new google.maps.panoramio.PanoramioLayer();
-
-function updateMapPanoramio(){
-  panoramioLayer.setMap(parseInt(jQuery('#jform_params_mappanoramiolayer input[type=radio]:checked').val()) ? map : null);
-  panoramioLayer.setTag(String(jQuery('#jform_params_mappanoramiotag').val()));
-}
-//set on pageload
-updateMapPanoramio();
-//check activation toggle 
-jQuery('#jform_params_mappanoramiolayer').click(function(){
-  if (parseInt(jQuery('#jform_params_mappanoramiolayer input[type=radio]:checked').val())) {
-    panoramioLayer.setMap(map);
-    jQuery('#jform_params_mappanoramiotag').closest('.control-group').show(500);
-  }else{
-    panoramioLayer.setMap(null);
-    jQuery('#jform_params_mappanoramiotag').closest('.control-group').hide(500);
-  }
-});
-//check if we need to hide fields on pageload
-if (parseInt(jQuery('#jform_params_mappanoramiolayer input[type=radio]:checked').val())) {
-  jQuery('#jform_params_mappanoramiotag').closest('.control-group').show();
-}else{
-  jQuery('#jform_params_mappanoramiotag').closest('.control-group').hide();
-}
-jQuery('#jform_params_mappanoramiotag').bind('input propertychange', 'input,textarea', function() {
-  panoramioLayer.setTag(String(jQuery(this).val()));
-});
-
-//******************end panoramio layer*******************//
-
 //******************kml layer*******************//
 function updateKml(){
   kmlfile = jQuery('#jform_params_mapkmllayer').val();
@@ -374,12 +257,6 @@ jQuery('#jform_params_mapkmllayer').focusout(function(){
 //check for kml on load
 updateKml();
 //******************end kml layer*******************//
-
-//****************** *******************//
-//******************end *******************//
-
-//****************** *******************//
-//******************end *******************//
 
 //******************markers***********************//
 //Global marker array

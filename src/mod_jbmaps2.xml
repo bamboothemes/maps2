@@ -74,28 +74,6 @@
 				<field name="markers" type="markers" label="MOD_JBMAPS2_MAPMARKERS_LABEL" description="MOD_JBMAPS2_MAPMARKERS_DESC"/>
 			</fieldset>
 			<fieldset name="layers">
-				<field name="mapweatherlayer" type="radio" label="MOD_JBMAPS2_MAPWEATHERLAYER_LABEL" description="MOD_JBMAPS2_MAPWEATHERLAYER_DESC" default="0" class="btn-group btn-group-yesno">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field name="mapweatherunits" type="radio" label="MOD_JBMAPS2_MAPWEATHERUNITS_LABEL" description="MOD_JBMAPS2_MAPWEATHERUNITS_DESC" default="google.maps.weather.TemperatureUnit.CELSIUS" class="btn-group">
-					<option value="google.maps.weather.TemperatureUnit.CELSIUS">°C</option>
-					<option value="google.maps.weather.TemperatureUnit.FAHRENHEIT">°F</option>
-				</field>
-				<field name="mapwindunits" type="list" label="MOD_JBMAPS2_MAPWINDUNITS_LABEL" description="MOD_JBMAPS2_MAPWINDUNITS_DESC" default="google.maps.weather.WindSpeedUnit.METERS_PER_SECOND" class="btn-group">
-					<option value="google.maps.weather.WindSpeedUnit.KILOMETERS_PER_HOUR">MOD_JBMAPS2_KMH</option>
-					<option value="google.maps.weather.WindSpeedUnit.METERS_PER_SECOND">MOD_JBMAPS2_MS</option>
-					<option value="google.maps.weather.WindSpeedUnit.MILES_PER_HOUR">MOD_JBMAPS2_MH</option>
-				</field>
-				<field name="mapweatherlabels" type="list" label="MOD_JBMAPS2_MAPWEATHERLABELS_LABEL" description="MOD_JBMAPS2_MAPWEATHERLABELS_DESC" default="0" class="btn-group">
-					<option value="0">Auto</option>
-					<option value="google.maps.weather.LabelColor.BLACK">Black</option>
-					<option value="google.maps.weather.LabelColor.WHITE">White</option>
-				</field>
-				<field name="mapcloudlayer" type="radio" label="MOD_JBMAPS2_MAPCLOUDLAYER_LABEL" description="MOD_JBMAPS2_MAPCLOUDLAYER_DESC" default="0" class="btn-group btn-group-yesno">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
 				<field name="maptrafficlayer" type="radio" label="MOD_JBMAPS2_MAPTRAFFICLAYER_LABEL" description="MOD_JBMAPS2_MAPTRAFFICLAYER_DESC" default="0" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
@@ -108,11 +86,6 @@
 					<option value="1">JYES</option>
 					<option value="0">JNO</option>
 				</field>
-				<field name="mappanoramiolayer" type="radio" label="MOD_JBMAPS2_MAPPANORAMIOLAYER_LABEL" description="MOD_JBMAPS2_MAPPANORAMIOLAYER_DESC" default="0" class="btn-group btn-group-yesno">
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-				<field name="mappanoramiotag" type="text" default="" label="MOD_JBMAPS2_MAPPANORAMIOTAG_LABEL" description="MOD_JBMAPS2_MAPPANORAMIOTAG_DESC" />
 				<field name="mapkmllayer" type="text" default="" label="MOD_JBMAPS2_MAPKMLLAYER_LABEL" description="MOD_JBMAPS2_MAPKMLLAYER_DESC" />
 			</fieldset>
 			<fieldset name="styles">
