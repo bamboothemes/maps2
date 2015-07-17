@@ -271,7 +271,7 @@ function addMarker(location) {
     markerid: markers.length,
     position: location,
     title: '',
-    icon: 'http://maps.google.com/mapfiles/marker.png',
+    icon: 'https://maps.google.com/mapfiles/marker.png',
     windowcontent: '',
     draggable: true,
     map: map
@@ -457,25 +457,25 @@ var popOverIconSettings = {
     /*jshint multistr: true */
     content: '<div class="selectmarker">\
       <p><small>Standard 20x34</small></p>\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_black.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_brown.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_green.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_purple.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_yellow.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_grey.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_orange.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_white.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_black.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_brown.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_green.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_purple.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_yellow.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_grey.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_orange.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_white.png">\
       <p><small>Letters 20x34 (change letter (A-Z) in link field)</small></p>\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/markerA.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_blackB.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_brownC.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_greenD.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_purpleE.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_yellowF.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_greyG.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_orangeH.png">\
-      <img class="updatemarker" src="http://maps.google.com/mapfiles/marker_whiteI.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/markerA.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_blackB.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_brownC.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_greenD.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_purpleE.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_yellowF.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_greyG.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_orangeH.png">\
+      <img class="updatemarker" src="https://maps.google.com/mapfiles/marker_whiteI.png">\
       <p><small>12x20</small></p>\
       <img class="updatemarker" src="http://labs.google.com/ridefinder/images/mm_20_red.png">\
       <img class="updatemarker" src="http://labs.google.com/ridefinder/images/mm_20_black.png">\
@@ -488,7 +488,7 @@ var popOverIconSettings = {
       <img class="updatemarker" src="http://labs.google.com/ridefinder/images/mm_20_white.png">\
       <img class="updatemarker" src="http://labs.google.com/ridefinder/images/mm_20_blue.png">\
       <p>&nbsp;</p>\
-      <p><small><a href="http://mapicons.nicolasmollet.com/" target="_blank">Browse Icons Here (opens in a new window)</a></small></p>\
+      <p><small><a href="https://mapicons.mapsmarker.com/" target="_blank">Browse Icons Here (opens in a new window)</a></small></p>\
       </div>'
 };
 
