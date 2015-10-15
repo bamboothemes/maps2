@@ -133,7 +133,8 @@ if ($mapbicyclinglayer) {
 }
 if ($mapkmllayer) {
 	$script .= "var kmlLayer".$module->id." = new google.maps.KmlLayer({
-		url: '".$mapkmllayer."'
+		url: '".$mapkmllayer."',
+		preserveViewport: true
 	});
 kmlLayer".$module->id.".setMap(map".$module->id.");
 ";

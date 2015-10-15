@@ -248,6 +248,7 @@ function updateKml(){
   if (kmlfile !== '') {
     //console.log('update url');
     kmlLayer.setOptions({'url': kmlfile});
+    kmlLayer.setOptions({'preserveViewport': true});
     kmlLayer.setMap(map);
   }
 }
