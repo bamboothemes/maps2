@@ -54,7 +54,7 @@ if ($dnsprefetch !== '0') {
 
 //add the main script
 if ($loadmapsapi) {
-	$mapsScript = '//maps.google.com/maps/api/js?sensor=false&amp;language='.$languageCode;
+	$mapsScript = '//maps.google.com/maps/api/js?language='.$languageCode;
 	$document->addScript($mapsScript);
 }
 
