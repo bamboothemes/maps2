@@ -151,4 +151,4 @@ if ($trigger !== '') {
 $document->addStyleDeclaration($mapcss);
 $document->addScriptDeclaration($script);
 ?>
-<div id="jbmaps2-<?php echo $module->id; ?>"<?php if($moduleclass_sfx) {echo ' class="'.$moduleclass_sfx.'"';}; ?>></div>
+<div id="jbmaps2-<?php echo $module->id; ?>"></div>
