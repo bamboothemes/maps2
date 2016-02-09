@@ -41,7 +41,10 @@ $loadmapsapi		= $params->get('loadmapsapi', 1);
 $trigger			= $params->get('trigger', '');
 $triggerdelay		= $params->get('triggerdelay', '0');
 $dnsprefetch		= $params->get('dnsprefetch', '1');
-//$			= $params->get('', '');
+
+//add px if no units are added
+$mapwidth = is_numeric($mapwidth) ? $mapwidth.'px' : $mapwidth;
+$mapheight = is_numeric($mapheight) ? $mapheight.'px' : $mapheight;
 
 //add dns-prefetch links
 if ($dnsprefetch !== '0') {
