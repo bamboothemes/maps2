@@ -37,10 +37,12 @@ $maptrafficlayer	= $params->get('maptrafficlayer', 0);
 $maptransitlayer	= $params->get('maptransitlayer', 0);
 $mapbicyclinglayer	= $params->get('mapbicyclinglayer', 0);
 $mapkmllayer		= $params->get('mapkmllayer', 0);
+$apikey             = $params->get('apikey', '');
 $loadmapsapi		= $params->get('loadmapsapi', 1);
 $trigger			= $params->get('trigger', '');
 $triggerdelay		= $params->get('triggerdelay', '0');
 $dnsprefetch		= $params->get('dnsprefetch', '1');
+
 
 //add px if no units are added
 $mapwidth = is_numeric($mapwidth) ? $mapwidth.'px' : $mapwidth;
@@ -57,7 +59,8 @@ if ($dnsprefetch !== '0') {
 
 //add the main script
 if ($loadmapsapi) {
-	$mapsScript = '//maps.google.com/maps/api/js?language='.$languageCode;
+    $apikey = ($apikey === '') ? '' : '&key=' . $apikey;
+	$mapsScript = '//maps.google.com/maps/api/js?language=' . $languageCode . $apikey;
 	$document->addScript($mapsScript);
 }
 

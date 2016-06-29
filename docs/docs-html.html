@@ -3,9 +3,14 @@ strong {font-weight:700}
 .item-page ul li {list-style-type: disc;margin-left:30px}
 ol li {margin-left:30px}
 </style>
+<a id="intro"></a>
 <h3>Introduction</h3>
 <p>Maps2 is a super easy tool to use to add a google map to your Joomla website. To get started just enter a location to search for and then when you have found it click on the preview where you want to place your marker. You can also drag the map preview in the admin to position the map perfectly on the front end. Also be sure to check out the different map styles in the styles tab. Have fun!</p>
-<p><strong>Note:</strong> This module was designed to work on the latest Joomla 3.x versions. The module admin interface was redesigned around version 3.2.2 so if you are running a version previous to this you may see the admin controls in 2 columns.</p>
+<div class="alert">
+<p><strong>Note:</strong> As of 22nd June 2016, all new applications using the Google maps api require an api key. More information: <a target="_blank" href="http://googlegeodevelopers.blogspot.co.uk/2016/06/building-for-scale-updates-to-google.html">Google Developers Blog</a></p>
+<p><strong>Note:</strong> The weather, cloud and panoramio layers have been discontinued by Google and will no longer work. These options have been removed from the module. More information: <a target="_blank" href="http://googlegeodevelopers.blogspot.co.uk/2014/06/sunsetting-javascript-api-weather-panoramio.html">Google Developers Blog</a></p>
+</div>
+<a id="general"></a>
 <h3>General Map Controls</h3>
 <p>The preview map and the usual Joomla form controls are designed to work together to make it easier for you to position and style your map. Making changes on the map will alter the form fields and changing the for field values will also make the changes to the map, so you get an instant preview of your changes. You can zoom, drag, tilt and change the map type and the settings will be updated accordingly.</p>
 <p><strong>Location Search</strong> - This is a free search field which uses the geopositioning api to help you find a location. Start typing an address, zip/postal code or landmark in the field to centre the map on the location. The search is provided by Google and will return the same results as when searching on Google maps. The field has no effect on the front end of the site, it is just to help you position the map.</p>
@@ -37,6 +42,7 @@ ol li {margin-left:30px}
 <li>Draggable - The drag option toggles the users ability to drag the map around. When set to no the map will be fixed to the centre coordinates.</li>
 <li>Mouse Scroll - The mouse scroll option toggles the users ability to zoom in and out of the map with the mouse scroll wheel. It can be helpful with wide maps to prevent users getting stuck on the map when using the mouse to scroll up and down the page. It does not affect the cunctionality of the standard zoom controls.</li>
 </ul>
+<a id="markers"></a>
 <h3>Markers</h3>
 <h4>Adding and Removing</h4>
 <p><strong>Placing markers</strong> - Markers are added to the map with a single mouse click and will be placed at the location of the click</p>
@@ -53,6 +59,7 @@ ol li {margin-left:30px}
 <p><strong>Marker Text</strong>&nbsp;- This is the text that is shown in the pop-up info window when a user clicks on a marker. It can contain html.</p>
 <p><strong>Marker icon</strong>&nbsp;- The current marker icon is shown to the right of the marker field. Clicking on the marker opens a pop-up with a number of selectable alternatives, you can click on another marker to replace the current one. You can also enter the url of your own icon directly into the icon field input.</p>
 <p><strong>Delete marker</strong>&nbsp;- This removes the selected marker from the map. You can also do this on the map by double clicking the marker.</p>
+<a id="layers"></a>
 <h3>Layers</h3>
 <p>The Google maps api offers a number of additional layers that can be added to the base map tiles. These options can be found in the layers tab and are outlined below. Enabling a layer will also add it to the preview map. You can use more than one layer on a single map.</p>
 <p><strong>Traffic layer</strong>&nbsp;- The traffic layer shows Google traffic information for major roads (not available in all locations) . The colour of the roads is explained as follows:</p>
@@ -66,6 +73,7 @@ ol li {margin-left:30px}
 <p><strong>Transit layer</strong> - The transit layer shows public transportation (limited to major cities). The colour of the transit line is based on information provided by the transit operator. Enabling this layer will alter the base map style to emphasise the overlay.</p>
 <p><strong>Bicycling layer</strong> - Enabling this layer highlights bike paths, bike routes and other overlays specific to cycling. Enabling this layer will alter the base map style to emphasise the overlay.</p>
 <p><strong>KML layer</strong> – <strong>K</strong>eyhole <strong>M</strong>arkup <strong>L</strong>anguage is written in xml and is specific to geographical annotation. You can create your own kml file and add the path to that file in this input to add it to the map. You can write kml files by hand or generate them using the <a href="http://www.google.com/earth/" title="Google Earth Application" target="_blank">Google Earth application</a> and other online tools.</p>
+<a id="styles"></a>
 <h3>Styles</h3>
 <p>The Google maps api v3 allows you to customise the presentation of the standard base map tiles. It works by targeting specific map features (featureType) and then applying hue, colour, lightness/gamma values to those features (Stylers).</p>
 <p>The styling information is written in the JSON format.</p>
@@ -74,7 +82,9 @@ ol li {margin-left:30px}
 <p>Selecting a preset will populate the styles textarea with the JSON information for that style.</p>
 <p>To add you own styles to the preset to use again in the future, you can save your styles in a JSON file and add it to the modules preset folder (no spaces in the file name). The file name will then show in the preset list.</p>
 <p><strong>Styles not working</strong> - If you find that your styles are not added to the map,there may be a problem with the code syntax. If the code is not valid, a red warning box will appear above map styles input and the style will not be applied to the map. The warning will be removed when any errors are corrected.</p>
+<a id="advanced"></a>
 <h3>Advanced Parameters</h3>
+<p><strong>API Key</strong> - Added in version 1.2.3. The api currently works without specifying a key but Google now shows a console warning that the key is not specified. Instructions for generating a new key can be found <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">here</a>.
 <p><strong>Loading the API</strong> - By default the module will load the maps api from Google.</p>
 <p>If another extension on the same page is also loading the maps api then it can lead to errors. In those cases you can use this option to prevent the module from loading the map api file.</p>
 <p><strong>Reloading the Map</strong> - For the map to load correctly, it needs to be in a position that is visible when the page is loaded in order for the map to know the dimensions of the area it should fill.</p>

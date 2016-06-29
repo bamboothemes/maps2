@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later</license>
 	<authorEmail>design@joomlabamboo.com</authorEmail>
 	<authorUrl>www.joomlabamboo.com</authorUrl>
-	<version>1.2.2</version>
+	<version>1.2.3</version>
 	<description>MOD_JBMAPS2_DESC</description>
 	<files>
 		<filename module="mod_jbmaps2">mod_jbmaps2.php</filename>
@@ -95,6 +95,8 @@
 				<field name="mapcustomstyle" type="textarea" label="MOD_JBMAPS2_MAPCUSTOMSTYLE_LABEL" description="MOD_JBMAPS2_MAPCUSTOMSTYLE_DESC" default="" />
 			</fieldset>
 			<fieldset name="advanced">
+				<field name="mapapikeytext" type="note" default="" label="MOD_JBMAPS2_APIKEYNOTE_LABEL" description="MOD_JBMAPS2_APIKEYNOTE_DESC" />
+				<field name="apikey" type="text" default="" label="MOD_JBMAPS2_APIKEY_LABEL"/>
 				<field name="mapapitext" type="note" default="" label="MOD_JBMAPS2_MAPAPINOTE_LABEL" description="MOD_JBMAPS2_MAPAPINOTE_DESC" />
 				<field name="loadmapsapi" type="radio" label="MOD_JBMAPS2_LOADMAPSAPI_LABEL" description="MOD_JBMAPS2_LOADMAPSAPI_DESC" default="1" class="btn-group btn-group-yesno">
 					<option value="1">JYES</option>
