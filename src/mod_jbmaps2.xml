@@ -47,7 +47,7 @@
 					<option value="HYBRID">hybrid</option>
 					<option value="TERRAIN">terrain</option>
 				</field>
-				<field name="mapcontrols" type="checkboxes" label="MOD_JBMAPS2_MAPCONTROLS_LABEL" description="MOD_JBMAPS2_MAPCONTROLS_DESC" class="btn-group jbmaps2-mapcontrols" >
+				<field name="mapcontrols" type="checkboxes" label="MOD_JBMAPS2_MAPCONTROLS_LABEL" description="MOD_JBMAPS2_MAPCONTROLS_DESC" class="jbmaps2-mapcontrols" >
 					<option value="zoomControl">zoom</option>
 					<option value="panControl">pan</option>
 					<option value="mapTypeControl">maptype</option>
